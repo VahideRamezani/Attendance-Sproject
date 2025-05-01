@@ -3,24 +3,52 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>sign-in</title>
+     <title>student-page</title>
   <link href="dist/output.css" rel="stylesheet" />
 </head>
-<body>
+<body class="font-yekan">
      <section class="bg-hero w-screen min-h-screen bg-no-repeat bg-cover bg-center pt-10">
-     <header class="bg-[#0A2342] text-white rounded-2xl shadow-md mx-40 font-yekan">
-          <div class="px-6 py-4 flex items-center justify-around">
-            <div class="flex items-center space-x-10 space-x-reverse">
-              <img src="./pics/logo.png" class="max-w-14 max-h-14" alt="لوگو" />
-              <span class=" font-bold text-2xl">صفحه اصلی</span>
-            </div>
-            <nav class="flex gap-20  sm:text-base ">
-              <a href="#" class="hover:text-gray-300 text-xl">ورود / ثبت‌نام</a>
-              <a href="#" class="hover:text-gray-300 text-xl">درباره ما</a>
-              <a href="#" class="hover:text-gray-300 text-xl">متن نمونه</a>
-            </nav>
-          </div>
-        </header>
+          <header class="fixed top-10 left-0 right-0 z-50 bg-[#0A2342] text-white rounded-2xl shadow-md max-w-[80%] font-yekan mx-auto">
+               <div class="px-6 py-4 flex items-center justify-center">
+                 <div class="flex items-center space-x-10 space-x-reverse">
+                   <img src="./pics/logo.png" class="max-w-16 max-h-16" alt="لوگو" />
+                 <nav class="flex gap-20  sm:text-base ">
+                    <p  class="hover:text-gray-300 text-2xl">کاربر عزیز به پنل کاربری خوش آمدید</p>
+                   <a href="#" class="hover:text-gray-300 text-2xl">صفحه اصلی</a>
+                   <a href="#" class="hover:text-gray-300 text-2xl">خروج</a>
+                 </nav>
+                 </div>
+             </header>
+
+    <div class="pt-32 pb-8 flex flex-row justify-center items-center ">
+       <div class="bg-white flex flex-row justify-center items-center rounded-lg p-6 gap-50 ">
+
+         <h2 class="text-3xl font-bold m-10 text-gray-800">فیلترها:</h2>
+         
+         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+           <div class="relative">
+             <select class="block w-full px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-3xl">
+               <option value="">تاریخ</option>
+             </select>
+           </div>
+           
+           <div class="relative">
+             <select class="block w-full px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-3xl">
+               <option value="">دبیران</option>
+             </select>
+           </div>
+           
+            
+           <div class="relative">
+               <select class="block w-full px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-3xl">
+                 <option value="">دروس</option>
+               </select>
+             </div>
+
+         </div>
+
+       </div>
+   </div>
         </section>
 </body>
 </html>
