@@ -12,27 +12,47 @@
 <section class="bg-hero w-screen min-h-screen bg-no-repeat bg-cover bg-center pt-10" 
 style="background-image: url('./pics/first-page-back2.png'); background-attachment: fixed;">
 
-<header class="fixed top-10 left-0 right-0 z-50 bg-[#0A2342] text-white rounded-2xl shadow-md max-w-[60%] font-yekan mx-auto">
-      <div class="px-6 py-4 flex items-center justify-center">
-        <div class="flex items-center space-x-10 space-x-reverse">
-          <img src="./pics/logo.png" class="max-w-16 max-h-16" alt="لوگو" />
-        <nav class="flex gap-20  sm:text-base ">
-          <a href="#" class="hover:text-gray-300 text-2xl font-bold">صفحه اصلی</a>
-          <a href="#" class="hover:text-gray-300 text-2xl">ورود / ثبت‌نام</a>
-          <a href="#" class="hover:text-gray-300 text-2xl">درباره ما</a>
-          <a href="#" class="hover:text-gray-300 text-2xl">متن نمونه</a>
-        </nav>
-        </div>
-    </header>
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#0A2342] text-white shadow-md w-full h-[8%] md:h-[12%] md:w-[70%] md:rounded-2xl md:top-10 md:mx-auto transition-all duration-300">
+
+  <div class="px-4 py-3 md:px-6 md:py-4 flex items-center justify-center">
+    <div class="hidden md:flex items-center space-x-10 space-x-reverse">
+      <img src="./pics/logo.png" class="w-12 h-12 md:w-16 md:h-16" alt="لوگو" />
+    <nav class="hidden md:flex items-center gap-8 lg:gap-20 ">
+      <a href="#" class="hover:text-gray-300 text-2xl font-bold">صفحه اصلی</a>
+      <a href="#" class="hover:text-gray-300 text-2xl">ورود</a>
+      <a href="#about-school" class="hover:text-gray-300 text-2xl">درباره ما</a>
+      <a href="#" class="hover:text-gray-300 text-2xl">راهنمای کاربری</a>
+    </nav>
+    </div>
+    <img src="./pics/logo.png" class=" md:hidden w-12 h-12 absolute left-6 top-2" alt="لوگو" />
+    <button class="md:hidden text-5xl absolute right-2 top-4" onclick="toggleMobileMenu()">☰</button>
+  </div>
+  
+  <div id="mobileMenu" class="md:hidden fixed top-0 right-0 h-full w-64 bg-[#0A2342] shadow-lg transform translate-x-full transition-transform duration-300 flex flex-col pt-20 px-4">
+    <button class="absolute top-4 right-4 text-2xl text-white" onclick="toggleMobileMenu()">×</button>
+    <a href="#" class="hover:text-gray-300 text-lg py-3 font-bold border-b border-gray-700">صفحه اصلی</a>
+    <a href="#" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700">ورود</a>
+    <a href="#about-school" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700">درباره ما</a>
+    <a href="#" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700">راهنمای کاربری</a>
+  </div>
+</header>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('translate-x-full');
+    menu.classList.toggle('translate-x-0');
+  }
+</script>
   </section>
 
 <!-- secind page -->
-<section>
+<section id="about-school">
 
 <div class=" bg-no-repeat  bg-center pt-40 pb-10 " style="background-image: url(./pics/devider.png);"></div>
 
 <div class="flex flex-col items-center">
-<h2 class="m-10 text-2xl font-extrabold leading-none tracking-tight  md:text-3xl lg:text-3xl text-center" >
+<h2  class="m-10 text-2xl font-extrabold leading-none tracking-tight  md:text-3xl lg:text-3xl text-center" >
   هنرستان دخترانه فنی و حرفه‌ای استعداد های درخشان سعدی
 </h2>
 <p class="m-3 rtl:text-right text-lg text-justify" style="max-width: 70%; text-align: justify;">
