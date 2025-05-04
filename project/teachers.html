@@ -3,7 +3,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>student-page</title>
+     <title>teacher-page</title>
   <link href="dist/output.css" rel="stylesheet" />
   <style>
     body {
@@ -16,7 +16,7 @@
           <header class=" bg-[#0A2342] text-white rounded-2xl shadow-md md:max-w-[70%] max-w-[95%]  font-yekan mx-auto">
                <div class="px-6 py-4 flex items-center justify-center">
                  <div class="flex items-center space-x-10 space-x-reverse">
-                   <img src="./pics/user.png" class="md:max-w-16 md:max-h-16  max-h-10 max-w-10" alt="لوگو" />
+                   <img src="./pics/user.png" class="md:max-w-16 md:max-h-16  max-h-6 max-w-6" alt="لوگو" />
                  <nav class="flex md:gap-20 gap-10 sm:text-base ">
                     <p  class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">کاربر عزیز به پنل کاربری خوش آمدید</p>
                    <a href="#" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه اصلی</a>
@@ -59,128 +59,172 @@
 <!-- table -->
    <div class="w-full flex justify-center px-4">
     <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg overflow-hidden">
-      <table class="w-full text-center font-yekan text-lg">
+      <table class="w-full text-center font-yekan text-sm ">
         <thead>
-          <tr class="bg-[#FBFBFB]  md:text-xl text-base">
-            <th class="py-8">روز هفته</th>
+          <tr class="bg-[#FBFBFB]  md:text-xl text-sm">
+              <th class="py-8">گواهی</th>
+              <th>نام و نام خانوادگی</th>
               <th>تاریخ</th>
-            <th>آپلود گواهی</th>
-            <th>غیبت</th>
+            <th>وضعیت</th>
+            <th>تایید گواهی</th>
           </tr>
         </thead>
         <tbody>
           <!--row 1 -->
           <tr class="bg-[#EBEBEB] odd:bg-gray-100  md:text-lg text-sm">
-            <td class="py-4">
-              شنبه
-            </td>
+               <td class="py-4 text-center">
+                    <div class="flex justify-center items-center">
+                      <img src="./pics/govah.png" alt="آیکون" class="md:w-14 md:h-14 w-6 h-6" />
+                    </div>
+                  </td>
             <td>
-              1404/02/06
+            رسپینا سادات جوادی مقدم
+            </td>  
+             <td class="py-4">
+               04/02/06
+            </td>
+          
+            <td class="py-4 text-center">
+              <select name="" id="" class=" md:py-2 md:px-8 py-1 px-2 text-center md:rounded-xl rounded-xl bg-[#FF7F50]">
+               <option value="">غایب</option>
+               <option value="">حاضر</option>
+              </select>
             </td>
             <td class="py-4 text-center">
               <div class="flex justify-center items-center">
-                <img src="./pics/upload.png" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10" />
-              </div>
-            </td>
-            <td class="py-4 text-center">
-              <div class="flex justify-center items-center">
-                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8" />
+                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-6 h-6" />
               </div>
             </td>
           </tr>
   
             <!-- row 2 -->
           <tr class="bg-[#FBFBFB] odd:bg-gray-100  md:text-lg text-sm">
-            <td class="py-4">
-              شنبه
-            </td>
+               <td class="py-4 text-center">
+                    <div class="flex justify-center items-center">
+                      <img src="./pics/govah.png" alt="آیکون" class="md:w-14 md:h-14 w-6 h-6" />
+                    </div>
+                  </td>
             <td>
-              1404/02/06
+            رسپینا سادات جوادی مقدم
+            </td>  
+             <td class="py-4">
+               04/02/06
+            </td>
+          
+            <td class="py-4 text-center">
+              <select name="" id="" class=" md:py-2 md:px-8 py-1 px-2 text-center md:rounded-xl rounded-xl bg-[#FF7F50]">
+               <option value="">غایب</option>
+               <option value="">حاضر</option>
+              </select>
             </td>
             <td class="py-4 text-center">
               <div class="flex justify-center items-center">
-                <img src="./pics/upload.png" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10" />
-              </div>
-            </td>
-            <td class="py-4 text-center">
-              <div class="flex justify-center items-center">
-                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8" />
+                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-6 h-6" />
               </div>
             </td>
           </tr>
           <!-- row 3 -->
           <tr class="bg-[#EBEBEB] odd:bg-gray-100  md:text-lg text-sm">
-            <td class="py-4">
-              شنبه
-            </td>
+               <td class="py-4 text-center">
+                    <div class="flex justify-center items-center">
+                      <img src="./pics/govah.png" alt="آیکون" class="md:w-14 md:h-14 w-6 h-6" />
+                    </div>
+                  </td>
             <td>
-              1404/02/06
+            رسپینا سادات جوادی مقدم
+            </td>  
+             <td class="py-4">
+               04/02/06
+            </td>
+          
+            <td class="py-4 text-center">
+              <select name="" id="" class=" md:py-2 md:px-8 py-1 px-2 text-center md:rounded-xl rounded-xl bg-[#FF7F50]">
+               <option value="">غایب</option>
+               <option value="">حاضر</option>
+              </select>
             </td>
             <td class="py-4 text-center">
               <div class="flex justify-center items-center">
-                <img src="./pics/upload.png" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10" />
-              </div>
-            </td>
-            <td class="py-4 text-center">
-              <div class="flex justify-center items-center">
-                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8" />
+                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-6 h-6" />
               </div>
             </td>
           </tr>
           <!-- row 4 -->
           <tr class="bg-[#FBFBFB] odd:bg-gray-100  md:text-lg text-sm">
-            <td class="py-4">
-              شنبه
-            </td>
+               <td class="py-4 text-center">
+                    <div class="flex justify-center items-center">
+                      <img src="./pics/govah.png" alt="آیکون" class="md:w-14 md:h-14 w-6 h-6" />
+                    </div>
+                  </td>
             <td>
-              1404/02/06
+            رسپینا سادات جوادی مقدم
+            </td>  
+             <td class="py-4">
+               04/02/06
+            </td>
+          
+            <td class="py-4 text-center">
+              <select name="" id="" class=" md:py-2 md:px-8 py-1 px-2 text-center md:rounded-xl rounded-xl bg-[#FF7F50]">
+               <option value="">غایب</option>
+               <option value="">حاضر</option>
+              </select>
             </td>
             <td class="py-4 text-center">
               <div class="flex justify-center items-center">
-                <img src="./pics/upload.png" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10" />
-              </div>
-            </td>
-            <td class="py-4 text-center">
-              <div class="flex justify-center items-center">
-                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8" />
+                <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-6 h-6" />
               </div>
             </td>
           </tr>
 <!--  -->
 <tr class="bg-[#EBEBEB] odd:bg-gray-100  md:text-lg text-sm">
-  <td class="py-4">
-    شنبه
-  </td>
+     <td class="py-4 text-center">
+          <div class="flex justify-center items-center">
+            <img src="./pics/govah.png" alt="آیکون" class="md:w-14 md:h-14 w-6 h-6" />
+          </div>
+        </td>
   <td>
-    1404/02/06
+  رسپینا سادات جوادی مقدم
+  </td>  
+   <td class="py-4">
+     04/02/06
+  </td>
+
+  <td class="py-4 text-center">
+    <select name="" id="" class=" md:py-2 md:px-8 py-1 px-2 text-center md:rounded-xl rounded-xl bg-[#FF7F50]">
+     <option value="">غایب</option>
+     <option value="">حاضر</option>
+    </select>
   </td>
   <td class="py-4 text-center">
     <div class="flex justify-center items-center">
-      <img src="./pics/upload.png" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10" />
+      <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-6 h-6" />
     </div>
   </td>
-  <td class="py-4 text-center">
-    <div class="flex justify-center items-center">
-      <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8" />
-    </div>
   </td>
 </tr>
 <!--  -->
 <tr class="bg-[#FBFBFB] odd:bg-gray-100  md:text-lg text-sm">
-  <td class="py-4">
-    شنبه
-  </td>
+     <td class="py-4 text-center">
+          <div class="flex justify-center items-center">
+            <img src="./pics/govah.png" alt="آیکون" class="md:w-14 md:h-14 w-6 h-6" />
+          </div>
+        </td>
   <td>
-    1404/02/06
+  رسپینا سادات جوادی مقدم
+  </td>  
+   <td class="py-4">
+     04/02/06
+  </td>
+
+  <td class="py-4 text-center">
+    <select name="" id="" class=" md:py-2 md:px-8 py-1 px-2 text-center md:rounded-xl rounded-xl bg-[#FF7F50]">
+     <option value="">غایب</option>
+     <option value="">حاضر</option>
+    </select>
   </td>
   <td class="py-4 text-center">
     <div class="flex justify-center items-center">
-      <img src="./pics/upload.png" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10" />
-    </div>
-  </td>
-  <td class="py-4 text-center">
-    <div class="flex justify-center items-center">
-      <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8" />
+      <img src="./pics/check.png" alt="آیکون" class="md:w-12 md:h-12 w-6 h-6" />
     </div>
   </td>
 </tr>
