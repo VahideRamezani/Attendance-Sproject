@@ -9,16 +9,28 @@
     body {
       overflow-x: hidden;
     }
+    html {
+  scroll-behavior: smooth;
+}
   </style>
 </head>
 
 <body class="relative overflow-x-hidden font-yekan">
 <section class="w-screen min-h-screen pt-10 md:pt-0 relative overflow-hidden">
 <!-- background -->
-<div class="md:hidden absolute inset-0 w-full h-full bg-cover bg-center z-0"
-     style="background-image: url('./pics/first-page-back.png');"></div>
-<div class="hidden md:block absolute inset-0 w-full h-full bg-cover bg-center z-0"
+<div class=" absolute inset-0 w-full h-full bg-cover bg-center z-0"
      style="background-image: url('./pics/first-page-back2.png');"></div>
+      <!-- Overlay -->
+      <div class="absolute inset-0 w-full h-full bg-black opacity-40 z-10"></div>
+      <!-- Scroll-->
+      <div class="absolute bottom-0 w-full flex justify-center z-10">
+        <div class=" m-10 rounded-full  text-center">
+          <a href="#about-school" class="m-10 rounded-full shadow-lg text-center">
+            <img src="./pics/arrow.png" alt="ScrollIcon" class="w-16 h-16 mx-auto cursor-pointer" />
+          </a>
+        </div>
+      </div>
+
 
 <!-- header -->
   <div class="relative z-10">
