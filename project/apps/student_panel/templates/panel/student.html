@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{# head style #}
+{% block head-style %}
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+{% endblock %}
+
+{# header #}
+{% block header %}
+    <body class="font-yekan">
+    <section class="bg-hero w-screen min-h-screen bg-no-repeat bg-cover bg-center pt-5 md:pt-10">
+    <header class=" bg-[#0A2342] text-white rounded-2xl shadow-md md:max-w-[70%] max-w-[95%]  font-yekan mx-auto">
+        <div class="px-6 py-4 flex items-center justify-center">
+            <div class="flex items-center space-x-10 space-x-reverse">
+                <img src="{% static './pics/user.png' %}" class="md:max-w-16 md:max-h-16  max-h-10 max-w-10"
+                     alt="لوگو"/>
+                <nav class="flex md:gap-20 gap-10 sm:text-base ">
+                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">کاربر عزیز به پنل کاربری خوش
+                        آمدید</p>
+                    <a href="#" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه اصلی</a>
+                    <a href="#" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">خروج</a>
+                </nav>
+            </div>
+    </header>
+{% endblock header %}
+
+{# content #}
+{% block content %}
+    <div class="p-4 md:p-10 flex justify-center items-center">
+        <div class="bg-white rounded-lg p-4 md:p-6 flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full max-w-6xl">
+
+            <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-0 hidden md:block">فیلترها:</h2>
+
+            <!-- فیلترها -->
+            <div class="flex flex-wrap md:grid md:grid-cols-3 gap-4 md:gap-6 justify-center w-full">
+
+                <div class="relative">
+                    <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
+                        <option value="">تاریخ</option>
+                    </select>
+                </div>
+
+                <div class="relative">
+                    <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
+                        <option value="">دبیران</option>
+                    </select>
+                </div>
+
+                <div class="relative">
+                    <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
+                        <option value="">دروس</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- table -->
+    <div class="w-full flex justify-center px-4">
+        <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg overflow-hidden">
+            <table class="w-full text-center font-yekan text-lg">
+                <thead>
+                <tr class="bg-[#FBFBFB]  md:text-xl text-base">
+                    <th class="py-8">روز هفته</th>
+                    <th>تاریخ</th>
+                    <th>آپلود گواهی</th>
+                    <th>غیبت</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--row 1 -->
+                <tr class="bg-[#EBEBEB] odd:bg-gray-100  md:text-lg text-sm">
+                    <td class="py-4">
+                        شنبه
+                    </td>
+                    <td>
+                        1404/02/06
+                    </td>
+                    <td class="py-4 text-center">
+                        <div class="flex justify-center items-center">
+                            <img src="{% static './pics/upload.png' %}" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10"/>
+                        </div>
+                    </td>
+                    <td class="py-4 text-center">
+                        <div class="flex justify-center items-center">
+                            <img src="{% static './pics/check.png' %}" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8"/>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </section>
+{% endblock content %}
