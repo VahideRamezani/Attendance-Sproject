@@ -10,13 +10,32 @@
         html {
             scroll-behavior: smooth;
         }
+
+        .fade-mask::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3rem;
+            background: linear-gradient(to top, white, rgba(255, 255, 255, 0));
+            pointer-events: none;
+        }
+
+        .max-closed {
+            max-height: 8rem;
+        }
+
+        .max-open {
+            max-height: 60rem;
+        }
     </style>
 {% endblock %}
 {# end motion #}
 
 {# first page #}
 {% block background %}
-    <body class="relative overflow-x-hidden font-yekan">
+    <body class="relative overflow-x-hidden font-yekan m-0 pt-0">
     <section class="w-screen min-h-screen pt-10 md:pt-0 relative overflow-hidden">
     <!-- background -->
     <div class=" absolute inset-0 w-full h-full bg-cover bg-center z-0"
@@ -27,165 +46,260 @@
     <div class="absolute bottom-0 w-full flex justify-center z-10">
         <div class=" m-10 rounded-full  text-center">
             <a href="#about-school" class="m-10 rounded-full shadow-lg text-center ">
-                <img src="{% static './pics/arrow.png' %}" alt="ScrollIcon" class="w-16 h-16 mx-auto cursor-pointer animate-bounce"/>
+                <img src="{% static './pics/arrow.png' %}" alt="ScrollIcon"
+                     class="w-16 h-16 mx-auto cursor-pointer animate-bounce"/>
             </a>
         </div>
     </div>
 {% endblock %}
 
 {% block header %}
-<!-- header -->
-  <div class="relative z-10">
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A2342] text-white shadow-md w-full md:h-[12%] h-[8%] md:w-[70%] md:rounded-2xl md:top-10 md:mx-auto transition-all duration-300">
-      <div class="flex items-center justify-between w-full px-4 py-2 md:px-6 md:py-3 h-full">
-        <div class="hidden md:flex items-center justify-evenly w-full">
-          <img src="{% static './pics/logo.png' %}" class="w-12 h-12 md:w-16 md:h-16" alt="لوگو" />
-          <nav class="flex items-center gap-8 lg:gap-20">
-            <a href="#" class="hover:text-gray-300 text-2xl font-bold text-nowrap">صفحه اصلی</a>
-            <a href="#" class="hover:text-gray-300 text-2xl text-nowrap">ورود</a>
-            <a href="#about-school" class="hover:text-gray-300 text-2xl text-nowrap">درباره ما</a>
-            <a href="#" class="hover:text-gray-300 text-2xl text-nowrap">راهنمای کاربری</a>
-          </nav>
+    <!-- header -->
+    <div class="relative z-10">
+        <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A2342] text-white shadow-md w-full md:h-[12%] h-[8%] md:w-[70%] md:rounded-2xl md:top-10 md:mx-auto transition-all duration-300">
+            <div class="flex items-center justify-between w-full px-4 py-2 md:px-6 md:py-3 h-full">
+                <div class="hidden md:flex items-center justify-evenly w-full">
+                    <img src="{% static './pics/logo.png' %}" class="w-12 h-12 md:w-16 md:h-16" alt="لوگو"/>
+                    <nav class="flex items-center gap-8 lg:gap-20">
+                        <a href="#" class="hover:text-gray-300 text-2xl font-bold text-nowrap">صفحه اصلی</a>
+                        <a href="{% url 'login:roles' %}" class="hover:text-gray-300 text-2xl text-nowrap">ورود</a>
+                        <a href="#about-school" class="hover:text-gray-300 text-2xl text-nowrap">درباره ما</a>
+                        <a href="#about_system" class="hover:text-gray-300 text-2xl text-nowrap">راهنمای کاربری</a>
+                    </nav>
+                </div>
+
+                <div class="md:hidden flex justify-between items-center w-full px-4 py-3">
+                    <button class="text-4xl" onclick="toggleMobileMenu()">☰</button>
+                    <img src="{% static './pics/logo.png' %}" class="w-12 h-12" alt="لوگو"/>
+                </div>
+            </div>
+        </header>
+
+        <div id="mobileMenu"
+             class="md:hidden fixed top-0 right-[-100%] h-full w-64 bg-[#0A2342] shadow-lg transition-all duration-300 flex flex-col pt-20 px-4 z-50">
+            <button class="absolute top-4 right-4 text-2xl text-white" onclick="toggleMobileMenu()">×</button>
+            <a href="#" class="hover:text-gray-300 text-lg py-3 font-bold border-b border-gray-700 text-white">صفحه
+                اصلی</a>
+            <a href="{% url 'login:roles' %}"
+               class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">ورود</a>
+            <a href="#about-school" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">درباره
+                ما</a>
+            <a href="#about_system" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">راهنمای
+                کاربری</a>
         </div>
+        </header>
+    </div>
+    </section>
 
-        <div class="md:hidden flex justify-between items-center w-full px-4 py-3">
-          <button class="text-4xl" onclick="toggleMobileMenu()">☰</button>
-          <img src="{% static './pics/logo.png' %}" class="w-12 h-12" alt="لوگو" />
-        </div>
-      </div>
-    </header>
-
-      <div id="mobileMenu" class="md:hidden fixed top-0 right-[-100%] h-full w-64 bg-[#0A2342] shadow-lg transition-all duration-300 flex flex-col pt-20 px-4 z-50">
-        <button class="absolute top-4 right-4 text-2xl text-white" onclick="toggleMobileMenu()">×</button>
-        <a href="#" class="hover:text-gray-300 text-lg py-3 font-bold border-b border-gray-700 text-white">صفحه اصلی</a>
-        <a href="#" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">ورود</a>
-        <a href="#about-school" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white" >درباره ما</a>
-        <a href="#" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">راهنمای کاربری</a>
-      </div>
-    </header>
-  </div>
-</section>
-
-<script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById('mobileMenu');
-    if (menu.classList.contains('right-[-100%]')) {
-      menu.classList.remove('right-[-100%]');
-      menu.classList.add('right-0');
-    } else {
-      menu.classList.add('right-[-100%]');
-      menu.classList.remove('right-0');
-    }
-  }
-</script>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu.classList.contains('right-[-100%]')) {
+                menu.classList.remove('right-[-100%]');
+                menu.classList.add('right-0');
+            } else {
+                menu.classList.add('right-[-100%]');
+                menu.classList.remove('right-0');
+            }
+        }
+    </script>
 {% endblock %}
 {# end first page #}
 
 {% block content %}
-{# second page #}
-<section id="about-school">
+    {# second page #}
+    <section id="about-school">
 
-    <div class=" bg-no-repeat  bg-center pt-40 pb-10 " style="background-image: url({% static './pics/devider.png' %});"></div>
+        <div class=" bg-no-repeat  bg-center pt-40 pb-10 "
+             style="background-image: url({% static './pics/devider.png' %});"></div>
 
-    <div class="flex flex-col items-center">
-        <h2 class="m-10 text-xl font-extrabold leading-8 tracking-tight  md:text-3xl lg:text-3xl text-center">
-            هنرستان دخترانه فنی و حرفه‌ای استعداد های درخشان سعدی
-        </h2>
-        <p class="m-3 rtl:text-right text-lg text-justify md:block hidden" style="max-width: 70%; text-align: justify;">
-            هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی، یک مرکز آموزشی تخصصی است که در سال 1399 تاسیس شده و در
-            ابتدای بلوار کلاهدوز واقع شده است. این هنرستان با هدف پرورش استعدادهای جوانان در زمینه‌های فنی و هنری، سه
-            رشته تخصصی شامل شبکه، نرم‌افزار و فتوگرافیک و گرافیک را ارائه می‌دهد.
-            در این هنرستان، دانش‌آموزان با بهره‌گیری از اساتید مجرب و تجهیزات پیشرفته، مهارت‌های لازم را در زمینه‌های
-            مختلف فناوری اطلاعات و هنرهای بصری کسب می‌کنند. این آموزش‌ها به گونه‌ای طراحی شده‌اند که دانش‌آموزان با
-            چالش‌های دنیای واقعی آشنا شوند و برای ورود به بازار کار آماده گردند.
-            هنرستان سعدی به عنوان یک نهاد آموزشی پیشرو، با ایجاد فضایی خلاقانه و پویا، به دنبال ارتقاء توانمندی‌های علمی
-            و عملی دانش‌آموزان است و به آنها کمک می‌کند تا در مسیر موفقیت‌های آینده خود گام بردارند.
-        </p>
-
-        <!-- نسخه موبایل -->
-        <p class="m-3 rtl:text-right text-xl text-justify md:hidden" style="max-width: 90%; text-align: justify;">
-            هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی یک مرکز آموزشی است که در سال 1399 تاسیس شده و در ابتدای
-            بلوار کلاهدوز واقع است. این هنرستان با هدف پرورش استعدادهای جوانان در زمینه‌های فنی و هنری فعالیت می‌کند و
-            سه رشته تخصصی مانند شبکه، نرم‌افزار و گرافیک ارائه می‌دهد. همچنین، با ارائه آموزش‌های نوین و تجهیزات
-            پیشرفته، دانش‌آموزان را برای ورود به بازار کار آماده می‌سازد.
-        </p>
-
-        <h2 class="m-10 text-lg font-extrabold leading-none tracking-tight  md:text-3xl text-center">
-            سیستم حضور و غیاب
-        </h2>
-        <p class="m-3 rtl:text-right text-lg text-justify hidden md:block" style="max-width: 70%; text-align: justify;">
-            سیستم حضور و غیاب آنلاین، یکی از ابتکارات مهمی است که قرار است در هنرستان دخترانه فنی و حرفه‌ای استعدادهای
-            درخشان سعدی به اجرا درآید. این سیستم با هدف بهینه‌سازی مدیریت حضور دانش‌آموزان و افزایش دقت در ثبت اطلاعات
-            طراحی شده است.
-            در این سیستم، معلمان می‌توانند حضور و غیاب دانش‌آموزان را به سادگی و از طریق گوشی‌های هوشمند یا سیستم‌های
-            رایانه‌ای ثبت کنند. این فرآیند آنلاین، به سرعت و به راحتی امکان‌پذیر است و اطلاعات به‌طور مستقیم به پایگاه
-            داده هنرستان ارسال می‌شود. بدین ترتیب، نیازی به روش‌های سنتی و زمان‌بر ثبت حضور و غیاب نیست.
-            این سیستم مزایای متعددی دارد، از جمله کاهش خطا در ثبت اطلاعات، امکان گزارش‌گیری دقیق و لحظه‌ای از وضعیت حضور
-            و غیاب، و همچنین ارتقاء ارتباط بین مدرسه و والدین. والدین می‌توانند به‌صورت آنلاین و در هر زمان از وضعیت
-            حضور فرزندان خود مطلع شوند، که این امر باعث افزایش شفافیت و اعتماد به سیستم آموزشی می‌شود.
-        </p>
-
-        <p class="m-3 rtl:text-right text-lg text-justify md:hidden " style="max-width: 90%; text-align: justify;">
-            سیستم حضور و غیاب آنلاین، یک ابتکار جدید در هنرستان سعدی است که برای افزایش دقت و سرعت در ثبت حضور و غیاب
-            دانش‌آموزان طراحی شده است. معلمان از طریق گوشی یا سیستم‌های رایانه‌ای می‌توانند حضور دانش‌آموزان را ثبت کنند
-            و اطلاعات به‌طور مستقیم به پایگاه داده ارسال شود. این سیستم باعث کاهش خطاها و تسهیل ارتباط بین والدین و
-            مدرسه می‌شود.
-        </p>
-
-        <h2 class="m-10 text-xl font-extrabold leading-none tracking-tight  md:text-3xl text-center">
-            انتخاب نقش
-        </h2>
-
-        <div class="flex justify-center gap-10 md:gap-20 mt-5 flex-col md:flex-row">
-
-            <a href="login.html"
-               class="w-60 h-[100px] md:h-40 bg-[#0A2342] text-white flex items-center justify-center rounded-xl shadow-lg text-lg hover:bg-[#0A2342]/90 transition duration-200">
-                دانش‌آموز
-            </a>
-
-            <a href="login.html"
-               class="w-60 h-[100px] md:h-40 bg-[#0A2342] text-white flex items-center justify-center rounded-xl shadow-lg text-lg hover:bg-[#0A2342]/90 transition duration-200">
-                معلم
-            </a>
-
-            <a href="login.html"
-               class="w-60 h-[100px] md:h-40 bg-[#0A2342] text-white flex items-center justify-center rounded-xl shadow-lg text-lg hover:bg-[#0A2342]/90 transition duration-200">
-                معاون / مدیر
-            </a>
-        </div>
-
-
-    </div>
-
-    <div class=" bg-no-repeat  bg-center pt-10 mt-20" style="background-image: url({% static '/pics/devider.png' %});"></div>
-
-</section>
-
-<!-- third page -->
-<section>
-
-    <div class="flex flex-col md:flex-row gap-10 md:gap-20 my-20 justify-center items-center px-4">
-
-        <div class="relative w-full max-w-[500px] bg-white p-5 rounded-lg shadow-md border-r-[14px] border-[#FF7F50] text-right">
-            <h3 class="font-bold text-right text-xl md:text-2xl mb-5">تحول دیجیتالی در مدیریت حضور و غیاب</h3>
-            <p class="text-gray-700 leading-relaxed text-start line-clamp-4 text-lg md:text-xl">
-                با پیشرفت تکنولوژی و دیجیتالی شدن فرآیندهای آموزشی، هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی
-                نیز به جمع مراکز آموزشی مدرن پیوسته است. سیستم حضور و غیاب آنلاین که به تازگی در این هنرستان
+        <div class="flex flex-col items-center">
+            <h2 class="m-10 text-xl font-extrabold leading-8 tracking-tight  md:text-3xl lg:text-3xl text-center">
+                هنرستان دخترانه فنی و حرفه‌ای استعداد های درخشان سعدی
+            </h2>
+            <p class="m-3 rtl:text-right text-lg text-justify md:block hidden"
+               style="max-width: 70%; text-align: justify;">
+                هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی، یک مرکز آموزشی تخصصی است که در سال 1399 تاسیس شده
+                و در
+                ابتدای بلوار کلاهدوز واقع شده است. این هنرستان با هدف پرورش استعدادهای جوانان در زمینه‌های فنی و هنری،
+                سه
+                رشته تخصصی شامل شبکه، نرم‌افزار و فتوگرافیک و گرافیک را ارائه می‌دهد.
+                در این هنرستان، دانش‌آموزان با بهره‌گیری از اساتید مجرب و تجهیزات پیشرفته، مهارت‌های لازم را در
+                زمینه‌های
+                مختلف فناوری اطلاعات و هنرهای بصری کسب می‌کنند. این آموزش‌ها به گونه‌ای طراحی شده‌اند که دانش‌آموزان با
+                چالش‌های دنیای واقعی آشنا شوند و برای ورود به بازار کار آماده گردند.
+                هنرستان سعدی به عنوان یک نهاد آموزشی پیشرو، با ایجاد فضایی خلاقانه و پویا، به دنبال ارتقاء توانمندی‌های
+                علمی
+                و عملی دانش‌آموزان است و به آنها کمک می‌کند تا در مسیر موفقیت‌های آینده خود گام بردارند.
             </p>
-            <a href="#" class="text-cyan-500 text-sm font-medium mt-2 inline-block">مشاهده بیشتر &lt;</a>
-        </div>
 
-        <div class="relative w-full max-w-[500px] bg-white p-5 rounded-lg shadow-md border-r-[14px] border-[#FF7F50] text-right">
-            <h3 class="font-bold mb-5 text-right text-xl md:text-2xl">مزایای سیستم حضور و غیاب آنلاین</h3>
-            <p class="text-gray-700 leading-relaxed text-start line-clamp-4 text-lg md:text-xl">
-                در دنیای امروز، استفاده از فناوری‌های نوین به یکی از الزامات اساسی در مراکز آموزشی تبدیل شده است.
-                هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی با معرفی سیستم حضور و غیاب آنلاین، گامی مهم در
-                راستای بهبود
+            <!-- نسخه موبایل -->
+            <p class="m-3 rtl:text-right text-xl text-justify md:hidden" style="max-width: 90%; text-align: justify;">
+                هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی یک مرکز آموزشی است که در سال 1399 تاسیس شده و در
+                ابتدای
+                بلوار کلاهدوز واقع است. این هنرستان با هدف پرورش استعدادهای جوانان در زمینه‌های فنی و هنری فعالیت می‌کند
+                و
+                سه رشته تخصصی مانند شبکه، نرم‌افزار و گرافیک ارائه می‌دهد. همچنین، با ارائه آموزش‌های نوین و تجهیزات
+                پیشرفته، دانش‌آموزان را برای ورود به بازار کار آماده می‌سازد.
             </p>
-            <a href="#" class="text-cyan-500 text-sm font-medium mt-2 inline-block">مشاهده بیشتر &lt;</a>
+
+            <h2 class="m-10 text-lg font-extrabold leading-none tracking-tight  md:text-3xl text-center">
+                سیستم حضور و غیاب
+            </h2>
+            <p class="m-3 rtl:text-right text-lg text-justify hidden md:block"
+               style="max-width: 70%; text-align: justify;">
+                سیستم حضور و غیاب آنلاین، یکی از ابتکارات مهمی است که قرار است در هنرستان دخترانه فنی و حرفه‌ای
+                استعدادهای
+                درخشان سعدی به اجرا درآید. این سیستم با هدف بهینه‌سازی مدیریت حضور دانش‌آموزان و افزایش دقت در ثبت
+                اطلاعات
+                طراحی شده است.
+                در این سیستم، معلمان می‌توانند حضور و غیاب دانش‌آموزان را به سادگی و از طریق گوشی‌های هوشمند یا
+                سیستم‌های
+                رایانه‌ای ثبت کنند. این فرآیند آنلاین، به سرعت و به راحتی امکان‌پذیر است و اطلاعات به‌طور مستقیم به
+                پایگاه
+                داده هنرستان ارسال می‌شود. بدین ترتیب، نیازی به روش‌های سنتی و زمان‌بر ثبت حضور و غیاب نیست.
+                این سیستم مزایای متعددی دارد، از جمله کاهش خطا در ثبت اطلاعات، امکان گزارش‌گیری دقیق و لحظه‌ای از وضعیت
+                حضور
+                و غیاب، و همچنین ارتقاء ارتباط بین مدرسه و والدین. والدین می‌توانند به‌صورت آنلاین و در هر زمان از وضعیت
+                حضور فرزندان خود مطلع شوند، که این امر باعث افزایش شفافیت و اعتماد به سیستم آموزشی می‌شود.
+            </p>
+
+            <p class="m-3 rtl:text-right text-lg text-justify md:hidden " style="max-width: 90%; text-align: justify;">
+                سیستم حضور و غیاب آنلاین، یک ابتکار جدید در هنرستان سعدی است که برای افزایش دقت و سرعت در ثبت حضور و
+                غیاب
+                دانش‌آموزان طراحی شده است. معلمان از طریق گوشی یا سیستم‌های رایانه‌ای می‌توانند حضور دانش‌آموزان را ثبت
+                کنند
+                و اطلاعات به‌طور مستقیم به پایگاه داده ارسال شود. این سیستم باعث کاهش خطاها و تسهیل ارتباط بین والدین و
+                مدرسه می‌شود.
+            </p>
+
+            <h2 class="m-10 text-xl font-extrabold leading-none tracking-tight  md:text-3xl text-center">
+                انتخاب نقش
+            </h2>
+
+            <div class="flex justify-center gap-10 md:gap-20 mt-5 flex-col md:flex-row">
+
+                <a href="{% url 'login:Slogin' %}"
+                   class="w-60 h-[100px] md:h-40 bg-[#0A2342] text-white flex items-center justify-center rounded-xl shadow-lg text-lg hover:bg-[#0A2342]/90 transition duration-200">
+                    دانش‌آموز
+                </a>
+
+                <a href="{% url 'login:Tlogin' %}"
+                   class="w-60 h-[100px] md:h-40 bg-[#0A2342] text-white flex items-center justify-center rounded-xl shadow-lg text-lg hover:bg-[#0A2342]/90 transition duration-200">
+                    معلم
+                </a>
+
+                <a href="manager.html"
+                   class="w-60 h-[100px] md:h-40 bg-[#0A2342] text-white flex items-center justify-center rounded-xl shadow-lg text-lg hover:bg-[#0A2342]/90 transition duration-200">
+                    معاون / مدیر
+                </a>
+            </div>
+
+
         </div>
 
-    </div>
+        <div id="about_system" class=" bg-no-repeat  bg-center pt-20 mt-20"
+             style="background-image: url({% static '/pics/devider.png' %});"></div>
 
-</section>
+    </section>
+
+    {# third page #}
+    <section>
+
+        <div class="flex flex-col md:flex-row gap-10 md:gap-20 my-20 justify-center items-start px-4">
+            <!-- BOX 1 -->
+            <div class="relative w-full max-w-[500px] bg-white p-5 mb-10 rounded-lg shadow-md border-r-[14px] border-[#FF7F50] text-right">
+                <h3 class="font-bold text-right text-xl md:text-2xl mb-5">تحول دیجیتالی در مدیریت حضور و غیاب</h3>
+
+                <div id="box1"
+                     class="expand-container relative overflow-hidden transition-all duration-700 ease-in-out max-closed fade-mask">
+
+                    <p class="text-gray-700 text-start md:text-justify leading-relaxed md:leading-loose text-lg md:text-xl">
+                        با پیشرفت تکنولوژی و دیجیتالی شدن فرآیندهای آموزشی، هنرستان دخترانه فنی و حرفه‌ای استعدادهای
+                        درخشان سعدی نیز به جمع مراکز آموزشی مدرن پیوسته است. سیستم حضور و غیاب آنلاین که به تازگی در این
+                        هنرستان به مرحله اجرا درآمده، تغییرات بنیادینی در نحوه مدیریت حضور و غیاب دانش‌آموزان ایجاد کرده
+                        است.
+                        <br>
+                        این سیستم به معلمان این امکان را می‌دهد که حضور و غیاب دانش‌آموزان را به سادگی و با استفاده از
+                        گوشی‌های هوشمند یا کامپیوتر ثبت کنند. با این روش، اطلاعات به‌طور فوری و دقیق به پایگاه داده
+                        ارسال می‌شود، که این امر موجب کاهش خطاها و صرفه‌جویی در زمان می‌شود.
+                        <br>
+                        علاوه بر این، والدین می‌توانند به‌صورت آنلاین و در هر زمان از وضعیت حضور فرزندان خود مطلع شوند.
+                        این ویژگی نه تنها به شفافیت فرآیند آموزشی کمک می‌کند، بلکه ارتباط مؤثری بین مدرسه و خانواده
+                        برقرار می‌سازد.
+                        <br>
+                        به‌طور کلی، سیستم حضور و غیاب آنلاین هنرستان سعدی نمایانگر تعهد این مرکز به نوآوری و بهبود کیفیت
+                        آموزش است و انتظار می‌رود که با اجرای این سیستم، فرآیندهای مدیریتی بهبود یافته و تجربه یادگیری
+                        دانش‌آموزان ارتقاء یابد.
+                    </p>
+                </div>
+
+                <button onclick="toggleExpand(null, this)" class="text-cyan-500 text-sm font-medium mt-2 inline-block">
+                    مشاهده بیشتر &lt;
+                </button>
+            </div>
+
+            <!-- BOX 2 -->
+            <div class="relative w-full max-w-[500px] bg-white p-5 mb-10 rounded-lg shadow-md border-r-[14px] border-[#FF7F50] text-right">
+                <h3 class="font-bold mb-5 text-right text-xl md:text-2xl">مزایای سیستم حضور و غیاب آنلاین</h3>
+                <div id="box2"
+                     class="expand-container relative overflow-hidden transition-all duration-700 ease-in-out max-closed fade-mask">
+
+                    <p class="text-gray-700 text-start md:text-justify leading-relaxed md:leading-loose text-lg md:text-xl">
+                        در دنیای امروز، استفاده از فناوری‌های نوین به یکی از الزامات اساسی در مراکز آموزشی تبدیل شده
+                        است. هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی با معرفی سیستم حضور و غیاب آنلاین،
+                        گامی مهم در راستای بهبود فرآیندهای آموزشی و مدیریتی برداشته است.
+                        <br>
+                        این سیستم به معلمان این امکان را می‌دهد که به راحتی و با استفاده از دستگاه‌های دیجیتال، حضور
+                        دانش‌آموزان را ثبت کنند. از مزایای کلیدی این سیستم می‌توان به افزایش دقت در ثبت اطلاعات و کاهش
+                        زمان صرف شده برای مدیریت حضور و غیاب اشاره کرد.
+                        <br>
+                        همچنین، یکی از ویژگی‌های بارز این سیستم، امکان گزارش‌گیری دقیق و لحظه‌ای از وضعیت حضور و غیاب
+                        دانش‌آموزان است. والدین می‌توانند به‌راحتی از طریق پلتفرم آنلاین به اطلاعات فرزندان خود دسترسی
+                        پیدا کنند، که این امر نه تنها به ارتقاء شفافیت کمک می‌کند، بلکه موجب تقویت ارتباط بین مدرسه و
+                        خانواده می‌شود.
+                        <br>
+                        در نهایت، سیستم حضور و غیاب آنلاین در هنرستان سعدی به عنوان یک ابزار مؤثر در راستای بهبود کیفیت
+                        آموزشی و مدیریتی شناخته می‌شود و امید می‌رود که با بهره‌گیری از این فناوری، تجربه یادگیری
+                        دانش‌آموزان به نحو چشمگیری ارتقاء یابد.
+                    </p>
+                </div>
+                <button onclick="toggleExpand(null, this)" class="text-cyan-500 text-sm font-medium mt-2 inline-block">
+                    مشاهده بیشتر &lt;
+                </button>
+            </div>
+
+        </div>
+
+        <script>
+            function toggleExpand(_, button) {
+                const containers = document.querySelectorAll('.expand-container');
+                const buttons = document.querySelectorAll('button[onclick^="toggleExpand"]');
+
+                const anyOpen = [...containers].some(el => el.classList.contains("max-open"));
+
+                if (anyOpen) {
+
+                    containers.forEach(el => {
+                        el.classList.remove("max-open");
+                        el.classList.add("max-closed", "fade-mask");
+                    });
+                    buttons.forEach(btn => {
+                        btn.innerHTML = "مشاهده بیشتر &lt;";
+                    });
+                } else {
+
+                    containers.forEach(el => {
+                        el.classList.remove("max-closed", "fade-mask");
+                        el.classList.add("max-open");
+                    });
+                    buttons.forEach(btn => {
+                        btn.innerHTML = "بستن &gt;";
+                    });
+                }
+            }
+        </script>
+
+
+    </section>
 {% endblock %}

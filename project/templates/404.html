@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+    <body class="relative overflow-x-hidden font-yekan">
+    <section class="w-screen pt-10 md:pt-0 relative overflow-hidden">
+        <!-- header -->
+        <div class="relative z-10">
+            <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A2342] text-white shadow-md w-full md:h-[12%] h-[8%] md:w-[70%] md:rounded-2xl md:top-10 md:mx-auto transition-all duration-300">
+                <div class="flex items-center justify-between w-full px-4 py-2 md:px-6 md:py-3 h-full">
+                    <div class="hidden md:flex items-center justify-evenly w-full">
+                        <img src="{% static './pics/logo.png' %}" class="w-12 h-12 md:w-16 md:h-16" alt="لوگو"/>
+                        <nav class="flex items-center gap-8 lg:gap-20">
+                            <a href="{% url 'home:home' %}" class="hover:text-gray-300 text-2xl font-bold text-nowrap">صفحه اصلی</a>
+                            <a href="{% url 'login:roles' %}" class="hover:text-gray-300 text-2xl text-nowrap">ورود</a>
+                            <a href="" class="hover:text-gray-300 text-2xl text-nowrap">درباره ما</a>
+                            <a href="" class="hover:text-gray-300 text-2xl text-nowrap">راهنمای کاربری</a>
+                        </nav>
+                    </div>
+
+                    <div class="md:hidden flex justify-between items-center w-full px-4 py-3">
+                        <button class="text-4xl" onclick="toggleMobileMenu()">☰</button>
+                        <img src="{% static './pics/logo.png' %}" class="w-12 h-12" alt="لوگو"/>
+                    </div>
+                </div>
+            </header>
+
+            <div id="mobileMenu"
+                 class="md:hidden fixed top-0 right-[-100%] h-full w-64 bg-[#0A2342] shadow-lg transition-all duration-300 flex flex-col pt-20 px-4 z-50">
+                <button class="absolute top-4 right-4 text-2xl text-white" onclick="toggleMobileMenu()">×</button>
+                <a href="{% url 'home:home' %}" class="hover:text-gray-300 text-lg py-3 font-bold border-b border-gray-700 text-white">صفحه
+                    اصلی</a>
+                <a href="{% url 'login:roles' %}"
+                   class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">ورود</a>
+                <a href="" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">درباره
+                    ما</a>
+                <a href="" class="hover:text-gray-300 text-lg py-3 border-b border-gray-700 text-white">راهنمای
+                    کاربری</a>
+            </div>
+            </header>
+        </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu.classList.contains('right-[-100%]')) {
+                menu.classList.remove('right-[-100%]');
+                menu.classList.add('right-0');
+            } else {
+                menu.classList.add('right-[-100%]');
+                menu.classList.remove('right-0');
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+  <div class="flex-grow flex items-center justify-center px-4  min-h-screen">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight text-gray-800 text-center leading-relaxed">
+      این صفحه به زودی فعال خواهد شد!
+    </h1>
+  </div>
+{% endblock %}
+{% block section %}
+    </section>
+{% endblock %}
