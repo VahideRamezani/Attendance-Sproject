@@ -8,10 +8,10 @@ class classes(models.Model):
     grade = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.class_name
+        return  str(self.class_id)
 
 class students(models.Model):
-    student_id = models.AutoField(primary_key=True)
+    student_id = models.IntegerField(primary_key=True)
     student_name = models.CharField(max_length=100)
     stuent_lname = models.CharField(max_length=100)
     class_id = models.ForeignKey(classes , on_delete=models.CASCADE)
@@ -27,18 +27,18 @@ class teachers(models.Model):
         return self.teacher_name
 
 class subjects(models.Model):
-    subject_id = models.AutoField(primary_key=True)
+    subject_id = models.IntegerField(primary_key=True)
     subject_name = models.CharField(max_length=100)
     def __str__(self):
         return self.subject_name
 
 class teacher_class_subject(models.Model):
-    teacher_class_subject_id = models.AutoField(primary_key=True)
+    teacher_class_subject_id = models.IntegerField(primary_key=True)
     teaccer_id = models.ForeignKey(teachers, on_delete=models.CASCADE)
     class_id = models.ForeignKey(classes, on_delete=models.CASCADE)
     subject_id = models.ForeignKey(subjects , on_delete=models.CASCADE)
     def __str__(self):
-        return self.teacher_class_subject_id
+        return str(self.teacher_class_subject_id)
 
 class attendance(models.Model):
     attendance_id = models.AutoField(primary_key=True)
