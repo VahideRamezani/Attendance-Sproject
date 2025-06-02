@@ -25,23 +25,19 @@
     <div class="bg-[#0A2342] rounded-2xl shadow-xl w-full max-w-3xl md:min-h-[700px] h-[500px] flex flex-col justify-center items-center">
 
         <h1 class="text-xl md:text-5xl font-bold text-center text-white md:mb-20 mb-10">ورود دانش آموز</h1>
-        <form class="md:space-y-10 space-y-5 w-[90%] md:w-[80%]">
+        <form class="md:space-y-10 space-y-5 w-[90%] md:w-[80%]" method="post">
+            {% if error_message %}
+                <p style="color:red;">{{ error_message }}</p>
+            {% endif %}
+            {% csrf_token %}
             <div class="flex flex-row gap-6 ">
                 <label for="national-code" class="block text-white mb-3 text-xl md:text-2xl text-nowrap">کد ملی:</label>
-                <input
-                        type="text"
-                        id="national-code"
-                        class="w-full px-4 py-1 md:py-3 text-lg border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90"
-                        placeholder="">
+               {{ form.st_code }}
             </div>
 
             <div class="flex flex-row gap-5">
                 <label for="password" class="block text-white mb-3 text-xl md:text-2xl l text-nowrap">رمز عبور:</label>
-                <input
-                        type="password"
-                        id="password"
-                        class="w-full px-4 py-1 md:py-3 text-lg border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90"
-                        placeholder="">
+                {{ form.st_password }}
             </div>
 
             <div>
