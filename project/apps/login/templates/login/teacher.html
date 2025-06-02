@@ -24,24 +24,20 @@
     <div class="bg-[#0A2342] rounded-2xl shadow-xl w-full max-w-3xl md:min-h-[700px] h-[500px] flex flex-col justify-center items-center">
 
         <h1 class="text-xl md:text-5xl font-bold text-center text-white md:mb-20 mb-10">ورود معلم</h1>
-        <form class="md:space-y-10 space-y-5 w-[90%] md:w-[80%]">
+        <form class="md:space-y-10 space-y-5 w-[90%] md:w-[80%]" method="post">
+            {% if error_message %}
+                <p style="color:red;">{{ error_message }}</p>
+            {% endif %}
+            {% csrf_token %}
             <div class="grid grid-cols-12 items-center gap-2">
                 <label for="national-code" class="col-span-3 text-white text-lg md:text-2xl text-right">کد
                     پرسنلی:</label>
-                <input
-                        type="text"
-                        id="national-code"
-                        class="col-span-9 px-4 py-2 md:py-3 text-lg border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90"
-                        placeholder="">
+                {{ form.teacher_code }}
             </div>
 
             <div class="grid grid-cols-12 items-center gap-2">
                 <label for="password" class="col-span-3 text-white text-lg md:text-2xl text-right">رمز عبور:</label>
-                <input
-                        type="password"
-                        id="password"
-                        class="col-span-9 px-4 py-2 md:py-3 text-lg border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90"
-                        placeholder="">
+                {{ form.teacher_password }}
             </div>
 
             <div>
