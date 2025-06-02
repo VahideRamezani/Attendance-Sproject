@@ -32,7 +32,7 @@
             {% csrf_token %}
             <div class="flex flex-row gap-6 ">
                 <label for="national-code" class="block text-white mb-3 text-xl md:text-2xl text-nowrap">کد ملی:</label>
-               {{ form.st_code }}
+                {{ form.st_code }}
             </div>
 
             <div class="flex flex-row gap-5">
@@ -62,7 +62,8 @@
                     ورود
                 </button>
                 <button
-                        type="submit"
+                        onclick="history.back()"
+                        type="button"
                         class="w-full bg-[#FF7F50] text-[#0A2342] py-3 px-4 rounded-2xl hover:bg-[#3BD1A4] hover:text-white transition duration-200 mt-8 text-xl md:text-2xl ">
                     بازگشت
                 </button>
