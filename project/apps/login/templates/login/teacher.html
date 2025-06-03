@@ -39,21 +39,13 @@
                 <label for="password" class="col-span-3 text-white text-lg md:text-2xl text-right">رمز عبور:</label>
                 {{ form.teacher_password }}
             </div>
-
-            <div>
-                <label for="captcha" class="block text-white mb-3 text-lg md:text-2xl text-nowrap">کد امنیتی:</label>
-                <div class="flex items-center gap-4 w-full">
-                    <input
-                            type="text"
-                            id="captcha"
-                            class="w-full sm:w-3/5 md:w-2/3 lg:w-3/4 xl:w-3/4 px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90"
-                            placeholder="">
-
-                    <div class="w-full sm:w-2/5 md:w-1/3 lg:w-1/3 xl:w-1/4 py-7 rounded-xl bg-center">
-                          {{ form.captcha }}
+      <div>
+{#                <label for="captcha" class="block text-white mb-3 text-xl md:text-2xl text-nowrap">کد امنیتی:</label>#}
+                <div class="flex gap-6 w-full">
+                        {{ form.captcha }}
                     </div>
                 </div>
-            </div>
+
 
             <div class="flex flex-row gap-4">
                 <button

@@ -6,16 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S-login</title>
     <link href="{% static 'css/output.css' %}" rel="stylesheet"/>
-<style>
-  .captcha input {
-    @apply w-full sm:w-3/5 md:w-2/3 lg:w-3/4 xl:w-3/4 px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90;
-  }
-
-  .captcha img {
-    @apply w-full sm:w-2/5 md:w-1/3 lg:w-1/3 xl:w-1/4 p-2 rounded-xl bg-white shadow;
-  }
-</style>
-
 </head>
 
 <body class="min-h-screen p-0 font-yekan bg-gray-100 bg-no-repeat bg-top bg-contain md:bg-cover">
@@ -51,14 +41,11 @@
             </div>
 
             <div>
-                <label for="captcha" class="block text-white mb-3 text-xl md:text-2xl text-nowrap">کد امنیتی:</label>
-
-                <div class="flex  flex-row-reverse items-center gap-4 w-full [&>div]:flex [&>div]:items-center [&>div]:gap-4 [&>div]:w-full">
-                    {{ form.captcha }}
+{#                <label for="captcha" class="block text-white mb-3 text-xl md:text-2xl text-nowrap">کد امنیتی:</label>#}
+                <div class="flex gap-6 w-full">
+                        {{ form.captcha }}
+                    </div>
                 </div>
-
-
-            </div>
 
             <div class="flex flex-row gap-4">
                 <button
