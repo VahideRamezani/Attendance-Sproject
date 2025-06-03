@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.login',
     'apps.teacher_panel',
     'apps.student_panel',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -121,12 +122,26 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media/attendance/images/'
-# Default primary key field type
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from random import randint
+
+def numeric_captcha():
+    num = randint(10000, 99999)  # عدد ۵ رقمی
+    return str(num), str(num)
+
+CAPTCHA_CHALLENGE_FUNCT = 'project.settings.numeric_captcha'
+
+import os
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

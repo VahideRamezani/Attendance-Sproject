@@ -9,6 +9,7 @@ urlpatterns = [
     path('' , include('apps.login.urls') ),
     path('' , include('apps.student_panel.urls') ),
     path('' , include('apps.teacher_panel.urls') ),
+    path('captcha/', include('captcha.urls')),
 ]
 handler404 = 'apps.home.views.custom_404_view'
 

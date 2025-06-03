@@ -49,8 +49,8 @@
                             class="w-full sm:w-3/5 md:w-2/3 lg:w-3/4 xl:w-3/4 px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/90"
                             placeholder="">
 
-                    <div class="w-full sm:w-2/5 md:w-1/3 lg:w-1/3 xl:w-1/4 py-7 rounded-xl bg-center"
-                         style="background-image: url({% static 'pics/code.png' %});">
+                    <div class="w-full sm:w-2/5 md:w-1/3 lg:w-1/3 xl:w-1/4 py-7 rounded-xl bg-center">
+                          {{ form.captcha }}
                     </div>
                 </div>
             </div>
@@ -62,7 +62,8 @@
                     ورود
                 </button>
                 <button
-                        type="submit"
+                        onclick="history.back()"
+                        type="button"
                         class="w-full bg-[#FF7F50] text-[#0A2342] py-3 px-4 rounded-2xl hover:bg-[#3BD1A4] hover:text-white transition duration-200 mt-8 text-xl md:text-2xl ">
                     بازگشت
                 </button>
