@@ -30,8 +30,8 @@ def Slogin(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            code = form.cleaned_data['st_code'].strip()
-            password = form.cleaned_data['st_password'].strip()
+            code = form.cleaned_data['st_code']
+            password = form.cleaned_data['st_password']
             if code == password:
                 try:
                     student = students.objects.get(student_id=code)

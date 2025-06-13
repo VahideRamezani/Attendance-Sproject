@@ -124,10 +124,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
 
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -140,8 +142,3 @@ def numeric_captcha():
     return str(num), str(num)
 
 CAPTCHA_CHALLENGE_FUNCT = 'project.settings.numeric_captcha'
-
-import os
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

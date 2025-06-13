@@ -3,5 +3,8 @@ from . import views
 
 app_name = 'teacher_panel'
 urlpatterns = [
-     path('teacher/panel/', views.panel, name='panel'),
+     path('panel/', views.panel, name='panel'),
+     path('logout/', views.logout, name='logout'),
+     path('update_attendance/', views.update_attendance, name='update_attendance'),
+
 ]

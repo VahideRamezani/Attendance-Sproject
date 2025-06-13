@@ -4,4 +4,6 @@ from . import views
 app_name = 'student_panel'
 urlpatterns = [
      path('student/panel/', views.panel, name='panel'),
+     path('logout/', views.logout, name='logout'),
+
 ]

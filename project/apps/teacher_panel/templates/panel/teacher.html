@@ -1,109 +1,264 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {# head-style #}
 {% block head-style %}
-  <style>
-    body {
-      overflow-x: hidden;
-    }
-  </style>
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+
+        .table-container {
+            padding-bottom: 3rem; /* یا margin-bottom: 3rem */
+        }
+    </style>
 {% endblock %}
 
 {# header #}
 {% block header %}
-<body class="font-yekan">
-     <section class="bg-hero w-screen min-h-screen bg-no-repeat bg-cover bg-center pt-5 md:pt-10">
-          <header class=" bg-[#0A2342] text-white rounded-2xl shadow-md md:max-w-[70%] max-w-[95%]  font-yekan mx-auto">
-               <div class="px-6 py-4 flex items-center justify-center">
-                 <div class="flex items-center space-x-10 space-x-reverse">
-                   <img src="{% static './pics/user.png' %}" class="md:max-w-16 md:max-h-16  max-h-6 max-w-6" alt="لوگو" />
-                 <nav class="flex md:gap-20 gap-10 sm:text-base ">
-                    <p  class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">کاربر عزیز به پنل کاربری خوش آمدید</p>
-                   <a href="#" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه اصلی</a>
-                   <a href="#" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">خروج</a>
-                 </nav>
-                 </div>
-             </header>
+    <body class="font-yekan">
+
+    <section class="bg-hero w-screen min-h-screen bg-no-repeat bg-cover bg-center pt-5 md:pt-10">
+    <header class=" bg-[#0A2342] text-white rounded-2xl shadow-md md:max-w-[70%] max-w-[95%]  font-yekan mx-auto">
+        <div class="px-6 py-4 flex items-center justify-center">
+            <div class="flex items-center space-x-10 space-x-reverse">
+                <img src="{% static './pics/user.png' %}" class="md:max-w-16 md:max-h-16  max-h-6 max-w-6" alt="لوگو"/>
+                <nav class="flex md:gap-20 gap-10 sm:text-base ">
+                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">کاربر عزیز به پنل کاربری خوش
+                        آمدید</p>
+                    <a href="{% url 'home:home' %}" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه
+                        اصلی</a>
+                    <a href="{% url 'teacher_panel:logout' %}"
+                       class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">خروج</a>
+                </nav>
+            </div>
+    </header>
 {% endblock %}
 
 {# content #}
 {% block content %}
-<div class="p-4 md:p-10 flex justify-center items-center">
-  <div class="bg-white rounded-lg p-4 md:p-6 flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full max-w-6xl">
+    <div class="p-4 md:p-10 flex justify-center items-center">
+        <div class="bg-white rounded-lg p-4 md:p-6 flex flex-row md:flex-row items-center gap-6 md:gap-12 w-full max-w-6xl">
 
-    <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-0 hidden md:block">فیلترها:</h2>
+            <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-0 hidden md:block">فیلترها:</h2>
 
-    <!-- فیلترها -->
-    <div class="flex flex-wrap md:grid md:grid-cols-3 gap-4 md:gap-6 justify-center w-full">
+            <div class="w-full flex flex-row justify-center gap-4 md:gap-8 p-4 md:p-6">
+                <form method="get" id="filterForm" class="w-full flex flex-row justify-center gap-4 md:gap-8">
 
-      <div class="relative">
-        <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
-          <option value="">تاریخ</option>
-        </select>
-      </div>
-
-      <div class="relative">
-        <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
-          <option value="">دبیران</option>
-        </select>
-      </div>
-
-      <div class="relative">
-        <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
-          <option value="">دروس</option>
-        </select>
-      </div>
-
-    </div>
-
-  </div>
-</div>
-
-<!-- table -->
-   <div class="w-full flex justify-center px-4">
-    <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg overflow-hidden">
-      <table class="w-full text-center font-yekan text-sm ">
-        <thead>
-          <tr class="bg-[#FBFBFB]  md:text-xl text-sm">
-              <th class="py-8">گواهی</th>
-              <th>نام و نام خانوادگی</th>
-              <th>تاریخ</th>
-            <th>وضعیت</th>
-            <th>تایید گواهی</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!--row 1 -->
-          <tr class="bg-[#EBEBEB] odd:bg-gray-100  md:text-lg text-sm">
-               <td class="py-4 text-center">
-                    <div class="flex justify-center items-center">
-                      <img src="{% static './pics/govah.png' %}" alt="آیکون" class="md:w-14 md:h-14 w-6 h-6" />
+                    <!-- کلاس -->
+                    <div>
+                        <select name="class_id" onchange="document.getElementById('filterForm').submit();"
+                                class="w-full px-4 py-2 bg-[#FF7F50] text-white rounded-xl
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500
+                                   text-xs md:text-2xl text-right"
+                        >
+                            <option class="text-xs md:text-2xl" value="">کلاس</option>
+                            {% for class_obj in classes_for_teacher %}
+                                <option value="{{ class_obj.class_id }}"
+                                        class="text-xs md:text-2xl"
+                                        {% if class_obj.class_id|stringformat:"s" == selected_class %}selected{% endif %}>
+                                    {{ class_obj.grade }}
+                                </option>
+                            {% endfor %}
+                        </select>
                     </div>
-                  </td>
-            <td>
-            رسپینا سادات جوادی مقدم
-            </td>
-             <td class="py-4">
-               04/02/06
-            </td>
 
-            <td class="py-4 text-center">
-              <select name="" id="" class=" md:py-2 md:px-8 py-1 px-2 text-center md:rounded-xl rounded-xl bg-[#FF7F50]">
-               <option value="">غایب</option>
-               <option value="">حاضر</option>
-              </select>
-            </td>
-            <td class="py-4 text-center">
-              <div class="flex justify-center items-center">
-                <img src="{% static './pics/check.png' %}" alt="آیکون" class="md:w-12 md:h-12 w-6 h-6" />
-              </div>
-            </td>
-          </tr>
+                    <!-- درس -->
+                    <div class="w-[260px]">
+                        <select name="subject_id" onchange="document.getElementById('filterForm').submit();"
+                                class="w-full px-4 py-2 bg-[#FF7F50] text-white rounded-xl
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500
+                                   text-sm md:text-2xl text-right appearance-none text-wrap"
+                                style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                            <option value="">درس</option>
+                            {% for subject_obj in subjects_for_teacher %}
+                                <option value="{{ subject_obj.subject_id }}"
+                                        {% if subject_obj.subject_id|stringformat:"s" == selected_subject %}selected{% endif %}>
+                                    {{ subject_obj.subject_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-        </tbody>
-      </table>
+                    <!-- تاریخ شمسی -->
+                    <div class="w-[260px]">
+                        <select name="date" onchange="document.getElementById('filterForm').submit();"
+                                class="w-full px-4 py-2 bg-[#FF7F50] text-white rounded-xl
+                   focus:outline-none focus:ring-2 focus:ring-blue-500
+                   text-sm md:text-2xl text-right appearance-none text-wrap"
+                                style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                            <option value="">تاریخ</option>
+                            {% for d in date_range %}
+                                <option class="text-xs md:text-2xl"
+                                        value="{{ d.gregorian|date:'Y-m-d' }}"
+                                        {% if d.gregorian|date:'Y-m-d' == selected_date %}selected{% endif %}>
+                                    {{ d.jalali|date:"Y/m/d" }}
+                                    {% if d.gregorian|date:'Y-m-d' == today %}(امروز){% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
+                    <!-- وضعیت (فیک) -->
+                    <div class="w-[260px]">
+                        <select class="w-full px-4 py-2 bg-[#FF7F50] text-white rounded-xl
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500
+                                   text-sm md:text-2xl text-right appearance-none text-wrap"
+                                style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                            <option value="">وضعیت</option>
+                            <option>غایبین</option>
+                            <option>دیرکردگان</option>
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-        </section>
+
+    {% if students %}
+        <form method="post" action="{% url 'teacher_panel:update_attendance' %}">
+            {% csrf_token %}
+            <div class=" flex flex-col items-center  px-4">
+                <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg max-h-full ">
+                    <table class="w-full text-center font-yekan text-xs md:text-sm whitespace-nowrap">
+                        <thead>
+                        <tr class="bg-[#FBFBFB]  md:text-xl text-xs">
+                            <th class="py-8">گواهی</th>
+                            <th>نام و نام خانوادگی</th>
+                            <th>تاریخ</th>
+                            <th>وضعیت</th>
+                            <th>تایید گواهی</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for student in students %}
+                            <tr class="bg-[#EBEBEB] odd:bg-gray-100  md:text-lg text-sm">
+
+                                {% if is_today %}
+                                    <td>
+                                        <div class="flex justify-center items-center">
+
+                                            <img src="{% static './pics/nogovah.png' %}" alt="آیکون"
+                                                 class="md:w-14 md:h-14 w-6 h-6"/>
+                                        </div>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <div class="flex justify-center items-center">
+                                            <img src="{% static './pics/govah.png' %}" alt="آیکون"
+                                                 class="md:w-14 md:h-14 w-6 h-6"/>
+                                        </div>
+                                    </td>
+                                {% endif %}
+                                <td class="py-2 md:text-xl text-xs">{{ student.student_name }} {{ student.student_lname }}</td>
+                                <td class="py-2 md:text-xl text-xs">
+                                    {% if selected_date_jalali %}
+                                        {{ selected_date_jalali }}
+                                    {% else %}
+                                        {{ today }}
+                                    {% endif %}
+                                </td>
+                                {% if is_today %}
+                                    <td class="py-4 text-center text-xs md:text-2xl m-4">
+                                        <select name="status-{{ student.student_id }}"
+                                                class="status-select md:py-2 md:px-8 p-1 text-center text-xs md:text-2xl m-4 md:rounded-xl rounded-lg"
+                                                data-student-id="{{ student.student_id }}"
+                                                style="background-color: #FF7F50;">
+                                            <option value="a" data-color="#f63923">غایب</option>
+                                            <option value="l" data-color="#F59E0B">تاخیر</option>
+                                            <option value="p" data-color="#22C55E">حاضر</option>
+
+
+                                        </select>
+                                    </td>
+                                {% else %}
+                                    <td class="py-4 text-center">
+                                        <p class="text-gray-500 md:py-2 md:px-8p-1 text-center text-xs md:text-2xl m-4 md:rounded-xl rounded-lg ">
+                                            no access
+                                        </p>
+                                    </td>
+
+                                {% endif %}
+                                <td class="py-4 text-center">
+
+                                    <select name="status-{{ student.id }}"
+                                            class="status-select  md:py-2 md:px-8 p-1 text-center text-xs md:text-2xl m-4 md:rounded-xl rounded-lg"
+                                            data-student-id="{{ student.id }}"
+                                            style="background-color: #FF7F50;">
+                                        <option value="" data-color="#f63923">رد تایید</option>
+                                        <option value="" data-color="#22C55E">تایید</option>
+
+
+
+                                    </select>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="flex justify-center items-center m-14">
+                    <button type="submit"
+                            class="bg-[#0A2342] md:px-8 md:py-4 px-4 py-4 md:text-2xl text-sm text-white rounded-xl m-2 transition-colors duration-300 ease-in-out hover:bg-[#FF7F50] focus:outline-none focus:ring-4 focus:ring-[#ff9e70]">
+                        ثبت وضعیت حضور و غیاب
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+    {% elif selected_class %}
+        <p class="text-center text-gray-500 mt-4">دانش‌آموزی برای این کلاس پیدا نشد.</p>
+    {% endif %}
+
+    <script>
+        // برای انتخاب وضعیت حضور
+        document.querySelectorAll('.status-select').forEach(select => {
+            select.addEventListener('change', function () {
+                const studentId = this.getAttribute('data-student-id');
+                const status = this.value;
+
+                fetch("{% url 'teacher_panel:update_attendance' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        student_id: studentId,
+                        status: status
+                    })
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('وضعیت ثبت شد');
+                        } else {
+                            alert('خطا در ثبت وضعیت');
+                        }
+                    });
+            });
+        });
+
+        // برای رنگی شدن دکمه‌ها بر اساس انتخاب
+        document.querySelectorAll('.status-select, .confirm-select').forEach(function (select) {
+            function updateColor() {
+                const selectedOption = select.options[select.selectedIndex];
+                const color = selectedOption.getAttribute('data-color');
+                if (color) {
+                    select.style.backgroundColor = color;
+                }
+            }
+
+            updateColor();  // رنگ اولیه
+            select.addEventListener('change', updateColor);  // تغییر رنگ بعدی
+        });
+    </script>
+
+
+    </section>
 {% endblock %}

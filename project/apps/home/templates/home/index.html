@@ -29,6 +29,39 @@
         .max-open {
             max-height: 60rem;
         }
+
+        @layer utilities {
+            .animate-slide-up {
+                animation: slide-up 0.5s ease-out forwards;
+            }
+
+            .animate-slide-down {
+                animation: slide-down 0.5s ease-out forwards;
+            }
+
+            @keyframes slide-up {
+                0% {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slide-down {
+                0% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        }
+
     </style>
 {% endblock %}
 {# end motion #}
@@ -36,10 +69,44 @@
 {# first page #}
 {% block background %}
     <body class="relative overflow-x-hidden font-yekan m-0 pt-0">
+{% if messages %}
+<div class="fixed bottom-2 right-2 z-50">
+    {% for message in messages %}
+    <div id="message-{{ forloop.counter }}"
+         class="animate-slide-up  text-white font-bold mx-auto w-max text-2xl px-4 py-2 rounded shadow">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    {% for message in messages %}
+    setTimeout(() => {
+        const msg = document.getElementById('message-{{ forloop.counter }}');
+        if (msg) {
+            msg.classList.remove('animate-slide-up');
+            msg.classList.add('animate-slide-down');
+            msg.addEventListener('animationend', () => msg.remove());
+        }
+    }, 3000 + ({{ forloop.counter0 }} * 500));  // فاصله‌ی زمانی برای هر پیام
+    {% endfor %}
+});
+</script>
+{% endif %}
     <section class="w-screen min-h-screen pt-10 md:pt-0 relative overflow-hidden">
+    {% if messages %}
+        {% for message in messages %}
+            <div
+                    class="animate-slide-up bg-green-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-300 hover:bg-green-600 cursor-pointer"
+                    onclick="this.remove();">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <!-- background -->
     <div class=" absolute inset-0 w-full h-full bg-cover bg-center z-0"
-         style="background-image: url('{% static './pics/first-page-back2.png' %}');"></div>
+         style="background-image: url('{% static 'pics/first-page-back2.png' %}');"></div>
     <!-- Overlay -->
     <div class="absolute inset-0 w-full h-full bg-black opacity-40 z-10"></div>
     <!-- Scroll-->
@@ -214,7 +281,7 @@
                 <div id="box1"
                      class="expand-container relative overflow-hidden transition-all duration-700 ease-in-out max-closed fade-mask">
 
-                    <p class="text-gray-700 text-start md:text-justify leading-relaxed md:leading-loose text-lg md:text-xl">
+                    <p class="text-gray-700 text-start leading-relaxed md:leading-loose text-lg md:text-xl">
                         با پیشرفت تکنولوژی و دیجیتالی شدن فرآیندهای آموزشی، هنرستان دخترانه فنی و حرفه‌ای استعدادهای
                         درخشان سعدی نیز به جمع مراکز آموزشی مدرن پیوسته است. سیستم حضور و غیاب آنلاین که به تازگی در این
                         هنرستان به مرحله اجرا درآمده، تغییرات بنیادینی در نحوه مدیریت حضور و غیاب دانش‌آموزان ایجاد کرده
@@ -245,7 +312,7 @@
                 <div id="box2"
                      class="expand-container relative overflow-hidden transition-all duration-700 ease-in-out max-closed fade-mask">
 
-                    <p class="text-gray-700 text-start md:text-justify leading-relaxed md:leading-loose text-lg md:text-xl">
+                    <p class="text-gray-700 text-start  leading-relaxed md:leading-loose text-lg md:text-xl">
                         در دنیای امروز، استفاده از فناوری‌های نوین به یکی از الزامات اساسی در مراکز آموزشی تبدیل شده
                         است. هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی با معرفی سیستم حضور و غیاب آنلاین،
                         گامی مهم در راستای بهبود فرآیندهای آموزشی و مدیریتی برداشته است.
@@ -299,7 +366,6 @@
                 }
             }
         </script>
-
 
     </section>
 {% endblock %}

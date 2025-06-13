@@ -7,12 +7,72 @@
         body {
             overflow-x: hidden;
         }
+
+        @layer utilities {
+            .animate-slide-up {
+                animation: slide-up 0.5s ease-out forwards;
+            }
+
+            .animate-slide-down {
+                animation: slide-down 0.5s ease-out forwards;
+            }
+
+            @keyframes slide-up {
+                0% {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slide-down {
+                0% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        }
     </style>
 {% endblock %}
 
 {# header #}
 {% block header %}
+
     <body class="font-yekan">
+
+    {% if upload_message %}
+        <div class="fixed top-2 right-2 z-50 space-x-2 space-y-2">
+            {% for msg in upload_message %}
+                <div id="message-{{ forloop.counter }}"
+                     class="animate-slide-up  text-[#FF7F50] font-bold mx-auto w-max">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                {% for message in messages %}
+                    setTimeout(() => {
+                        const msg = document.getElementById('message-{{ forloop.counter }}');
+                        if (msg) {
+                            msg.classList.add('animate-slide-down');
+                            msg.addEventListener('animationend', () => msg.remove());
+                        }
+                    }, 3000);
+                {% endfor %}
+            });
+        </script>
+    {% endif %}
+
+
     <section class="bg-hero w-screen min-h-screen bg-no-repeat bg-cover bg-center pt-5 md:pt-10">
     <header class=" bg-[#0A2342] text-white rounded-2xl shadow-md md:max-w-[70%] max-w-[95%]  font-yekan mx-auto">
         <div class="px-6 py-4 flex items-center justify-center">
@@ -20,10 +80,12 @@
                 <img src="{% static './pics/user.png' %}" class="md:max-w-16 md:max-h-16  max-h-10 max-w-10"
                      alt="لوگو"/>
                 <nav class="flex md:gap-20 gap-10 sm:text-base ">
-                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">کاربر عزیز به پنل کاربری خوش
+                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">دانش آموز عزیز به پنل کاربری خوش
                         آمدید</p>
-                    <a href="#" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه اصلی</a>
-                    <a href="#" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">خروج</a>
+                    <a href="{% url 'home:home' %}" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه
+                        اصلی</a>
+                    <a href="{% url 'student_panel:logout' %}"
+                       class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">خروج</a>
                 </nav>
             </div>
     </header>
@@ -67,36 +129,40 @@
         <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg overflow-hidden">
             <table class="w-full text-center font-yekan text-lg">
                 <thead>
-                <tr class="bg-[#FBFBFB]  md:text-xl text-base">
+                <tr class="bg-[#FBFBFB] md:text-xl text-base">
                     <th class="py-8">روز هفته</th>
                     <th>تاریخ</th>
                     <th>آپلود گواهی</th>
-                    <th>غیبت</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!--row 1 -->
-                <tr class="bg-[#EBEBEB] odd:bg-gray-100  md:text-lg text-sm">
-                    <td class="py-4">
-                        شنبه
-                    </td>
-                    <td>
-                        1404/02/06
-                    </td>
-                    <td class="py-4 text-center">
-                        <div class="flex justify-center items-center">
-                            <img src="{% static './pics/upload.png' %}" alt="آیکون" class="md:w-16 md:h-16 w-10 h-10"/>
-                        </div>
-                    </td>
-                    <td class="py-4 text-center">
-                        <div class="flex justify-center items-center">
-                            <img src="{% static './pics/check.png' %}" alt="آیکون" class="md:w-12 md:h-12 w-8 h-8"/>
-                        </div>
-                    </td>
-                </tr>
+                {% for absence in absences %}
+                    <tr class="bg-[#EBEBEB] odd:bg-gray-100 md:text-lg text-sm">
+                        <td class="py-4">{{ absence.weekday }}</td>
+                        <td>{{ absence.jalali_date }}</td>
+                        <td>
+                            {% if absence.proof_image %}
+                                <a href="{{ absence.proof_image.url }}" target="_blank">
+                                    <img src="{% static 'pics/view-icon.png' %}" alt="مشاهده" class="mx-auto w-22 h-20">
+                                </a>
+                            {% else %}
+                                <form method="post" enctype="multipart/form-data" id="form-{{ absence.attendance_id }}">
+                                    {% csrf_token %}
+                                    <input type="file" name="proof_{{ absence.attendance_id }}" accept="image/*"
+                                           id="file-{{ absence.attendance_id }}" class="hidden"
+                                           onchange="document.getElementById('form-{{ absence.attendance_id }}').submit();">
 
+                                    <label for="file-{{ absence.attendance_id }}" style="cursor: pointer;">
+                                        <img src="{% static './pics/upload.png' %}" alt="آپلود" class=" mx-auto">
+                                    </label>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
+
         </div>
     </div>
     </section>
