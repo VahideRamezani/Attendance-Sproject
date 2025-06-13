@@ -130,20 +130,25 @@
             <table class="w-full text-center font-yekan text-lg">
                 <thead>
                 <tr class="bg-[#FBFBFB] md:text-xl text-base">
+                    <th class="py-8">درس</th>
                     <th class="py-8">روز هفته</th>
                     <th>تاریخ</th>
                     <th>آپلود گواهی</th>
+                    <th>تایید گواهی</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for absence in absences %}
+
                     <tr class="bg-[#EBEBEB] odd:bg-gray-100 md:text-lg text-sm">
+                        <td class="py-4">{{ absence.subject_name }}</td>
                         <td class="py-4">{{ absence.weekday }}</td>
                         <td>{{ absence.jalali_date }}</td>
                         <td>
                             {% if absence.proof_image %}
                                 <a href="{{ absence.proof_image.url }}" target="_blank">
-                                    <img src="{% static 'pics/view-icon.png' %}" alt="مشاهده" class="mx-auto w-22 h-20">
+                                    <img src="{% static 'pics/view-icon.png' %}" alt="مشاهده"
+                                         class="mx-auto w-22 h-20 opacity-50">
                                 </a>
                             {% else %}
                                 <form method="post" enctype="multipart/form-data" id="form-{{ absence.attendance_id }}">
@@ -156,6 +161,18 @@
                                         <img src="{% static './pics/upload.png' %}" alt="آپلود" class=" mx-auto">
                                     </label>
                                 </form>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if absence.proof_verified == True %}
+                                 <img src="{% static 'pics/check-green.png' %}" alt="تایید"
+                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
+                            {% elif absence.proof_verified == False %}
+                                 <img src="{% static 'pics/check.png' %}" alt="رد"
+                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
+                            {% else %}
+                                <img src="{% static 'pics/check-gray.png' %}" alt="هیج"
+                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
                             {% endif %}
                         </td>
                     </tr>

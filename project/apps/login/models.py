@@ -54,6 +54,7 @@ class attendance(models.Model):
     )
     status = models.CharField(max_length=1, choices=status_choice)
     proof_image = models.ImageField(upload_to='attendance/images/', null=True, blank=True)
+    proof_verified = models.BooleanField(null=True, blank=True)
 
     def __str__(self):
         return self.get_status_display()
