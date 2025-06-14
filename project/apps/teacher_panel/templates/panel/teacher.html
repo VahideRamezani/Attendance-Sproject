@@ -186,8 +186,8 @@
                                                 class="status-select w-fit md:py-2 md:px-8 p-1 text-center text-xs md:text-2xl m-2 md:rounded-xl rounded-lg"
                                                 data-student-id="{{ student.id }}"
                                                 style="background-color: #FF7F50;">
-                                            <option value="none" data-color="#f63923">رد تایید</option>
-                                            <option value="approved" data-color="#22C55E">تایید</option>
+                                            <option value="none" data-color="#f63923" {% if student.proof_verified == False %}selected{% endif %}>رد تایید</option>
+                                            <option value="approved" data-color="#22C55E" {% if student.proof_verified == True %}selected{% endif %}>تایید</option>
                                         </select>
                                     {% else %}
                                         <a class="py-2 md:text-xl text-xs">غیرفعال</a>
@@ -203,10 +203,14 @@
                     <input type="hidden" name="date" value="{{ selected_date }}">
 
                 </div>
-                <div class="flex justify-center items-center m-4">
-                    <button type="submit"
-                            class="bg-[#0A2342] md:px-8 md:py-4 px-4 py-4 md:text-2xl text-sm text-white rounded-xl mt-8 transition-colors duration-300 ease-in-out hover:bg-[#FF7F50] focus:outline-none focus:ring-4 focus:ring-[#ff9e70]">
-                        ثبت وضعیت حضور و غیاب
+                <div class="flex gap-5 justify-center items-center m-4">
+                    <button type="submit"  name="action" value="attendance"
+                            class="bg-[#0A2342] md:px-8 md:py-4 px-2 py-2 md:text-2xl text-sm text-white md:rounded-xl rounded-lg mt-8 transition-colors duration-300 ease-in-out hover:bg-[#FF7F50] focus:outline-none focus:ring-4 focus:ring-[#ff9e70]">
+                        ثبت وضعیت حضور
+                    </button>
+                    <button type="submit" name="action" value="proof"
+                            class="bg-[#0A2342] md:px-8 md:py-4 px-2 py-2 md:text-2xl text-sm text-white md:rounded-xl rounded-lg mt-8 transition-colors duration-300 ease-in-out hover:bg-[#FF7F50] focus:outline-none focus:ring-4 focus:ring-[#ff9e70]">
+                        ثبت وضعیت گواهی
                     </button>
                 </div>
             </div>

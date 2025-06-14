@@ -80,7 +80,7 @@
                 <img src="{% static './pics/user.png' %}" class="md:max-w-16 md:max-h-16  max-h-10 max-w-10"
                      alt="لوگو"/>
                 <nav class="flex md:gap-20 gap-10 sm:text-base ">
-                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">دانش آموز عزیز به پنل کاربری خوش
+                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">دانش آموز {{ first_name }} {{ last_name }} به پنل کاربری خوش
                         آمدید</p>
                     <a href="{% url 'home:home' %}" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه
                         اصلی</a>
@@ -148,7 +148,7 @@
                             {% if absence.proof_image %}
                                 <a href="{{ absence.proof_image.url }}" target="_blank">
                                     <img src="{% static 'pics/view-icon.png' %}" alt="مشاهده"
-                                         class="mx-auto w-22 h-20 opacity-50">
+                                         class="mx-auto md:w-20 md:h-20 w-8 h-8 opacity-50">
                                 </a>
                             {% else %}
                                 <form method="post" enctype="multipart/form-data" id="form-{{ absence.attendance_id }}">
@@ -158,7 +158,7 @@
                                            onchange="document.getElementById('form-{{ absence.attendance_id }}').submit();">
 
                                     <label for="file-{{ absence.attendance_id }}" style="cursor: pointer;">
-                                        <img src="{% static './pics/upload.png' %}" alt="آپلود" class=" mx-auto">
+                                        <img src="{% static './pics/upload.png' %}" alt="آپلود" class="md:w-20 md:h-20 w-8 h-8 mx-auto">
                                     </label>
                                 </form>
                             {% endif %}

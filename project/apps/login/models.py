@@ -46,7 +46,7 @@ class attendance(models.Model):
     class_id = models.ForeignKey(classes , on_delete=models.CASCADE)
     subject_id = models.ForeignKey(subjects , on_delete=models.CASCADE, null=True, blank=True)  # میتونی به دلخواه پر یا خالی باشه
     teacher_id = models.ForeignKey(teachers , on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)  # تغییر داده شده به DateField
+    date = models.DateField()  # تغییر داده شده به DateField
     status_choice = (
         ('a', 'absent'),
         ('p', 'present'),

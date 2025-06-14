@@ -1,5 +1,7 @@
 import json
 from datetime import date, timedelta, datetime
+
+from django.contrib import messages
 from django.utils.functional import cached_property
 import jdatetime
 from django.http import JsonResponse
@@ -30,9 +32,20 @@ def panel(request):
     selected_date = request.GET.get('date')
     selected_teacher = teacher
 
+    if not (selected_class and selected_subject and selected_date):
+        if classes_for_teacher.exists():
+            selected_class = str(classes_for_teacher.first().class_id)
+        if subjects_for_teacher.exists():
+            selected_subject = str(subjects_for_teacher.first().subject_id)
+        selected_date = date.today().strftime('%Y-%m-%d')
+
+
+        return redirect(
+            f"{request.path}?class_id={selected_class}&subject_id={selected_subject}&date={selected_date}"
+        )
+
     students_list = []
 
-    # بررسی صحت ترکیب کلاس و درس
     if selected_class and selected_subject:
         is_valid = teacher_class_subject.objects.filter(
             teacher_id=selected_teacher,
@@ -63,7 +76,7 @@ def panel(request):
         selected_date_jalali_str = jdatetime.date.fromgregorian(date=dt).strftime('%Y/%m/%d')
         is_today = True
 
-    # تاریخ‌ها
+
     start_date = date(2025, 3, 20)
     today = date.today()
     date_range = []
@@ -76,7 +89,7 @@ def panel(request):
         current_date += timedelta(days=1)
     date_range.reverse()
 
-    # اضافه کردن عکس مدارک اگر هست
+
     for student in students_list:
         att = attendance.objects.filter(student_id=student, date=dt).first()
         student.proof_image_url = att.proof_image.url if att and att.proof_image else None
@@ -102,23 +115,26 @@ def logout(request):
     return render(request, 'home/index.html', {'messages': ['شما با موفقیت خارج شدید.']})
 
 
+
 def update_attendance(request):
     if request.method == 'POST':
         teacher_id = request.session.get('teacher_id')
         if not teacher_id:
             return redirect('login_page')
 
-        teacher = teachers.objects.get(teacher_id=teacher_id)
+        try:
+            teacher = teachers.objects.get(teacher_id=teacher_id)
+        except teachers.DoesNotExist:
+            return redirect('login_page')
+
         selected_class_id = request.POST.get('class_id')
         selected_subject_id = request.POST.get('subject_id')
         selected_date_str = request.POST.get('date')
+        action = request.POST.get('action')
 
-        if selected_date_str:
-            try:
-                selected_date = datetime.strptime(selected_date_str, '%Y-%m-%d').date()
-            except ValueError:
-                selected_date = date.today()
-        else:
+        try:
+            selected_date = datetime.strptime(selected_date_str, '%Y-%m-%d').date()
+        except (ValueError, TypeError):
             selected_date = date.today()
 
         if not (selected_class_id and selected_subject_id):
@@ -142,26 +158,36 @@ def update_attendance(request):
         students_list = students.objects.filter(class_id=class_obj)
 
         for student in students_list:
-            status = request.POST.get(f'status-{student.student_id}')
-            proof_status = request.POST.get(f'proof_status-{student.student_id}')
+            if action == 'attendance':
+                status = request.POST.get(f'status-{student.student_id}')
+                if status:
+                    attendance_obj, created = attendance.objects.get_or_create(
+                        student_id=student,
+                        class_id=class_obj,
+                        subject_id=subject_obj,
+                        teacher_id=teacher,
+                        date=selected_date
+                    )
+                    attendance_obj.status = status
+                    attendance_obj.save()
 
-            proof_verified = None
-            if proof_status == 'approved':
-                proof_verified = True
-            elif proof_status == 'none':
-                proof_verified = False
+            elif action == 'proof':
+                proof_status = request.POST.get(f'proof_status-{student.student_id}')
+                if proof_status is not None:
+                    attendance_obj = attendance.objects.filter(
+                        student_id=student,
+                        class_id=class_obj,
+                        subject_id=subject_obj,
+                        teacher_id=teacher,
+                        date=selected_date
+                    ).first()
+                    if attendance_obj:
+                        attendance_obj.proof_verified = (proof_status == 'approved')
+                        attendance_obj.save()
+                    else:
+                        messages.error(
+                            request,
+                            f"برای دانش‌آموز {student.student_name} وضعیت حضور ثبت نشده است. ابتدا وضعیت حضور را ثبت کنید."
+                        )
 
-            if status:
-                attendance.objects.update_or_create(
-                    student_id=student,
-                    class_id=class_obj,
-                    subject_id=subject_obj,
-                    teacher_id=teacher,
-                    date=selected_date,
-                    defaults={
-                        'status': status,
-                        'proof_verified': proof_verified
-                    }
-                )
-
-    return redirect('teacher_panel:panel')
+        return redirect('teacher_panel:panel')

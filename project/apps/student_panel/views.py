@@ -16,6 +16,7 @@ def panel(request):
     except students.DoesNotExist:
         return redirect('login:Slogin')
 
+
     upload_message = ""
     if request.method == "POST":
         absences = attendance.objects.filter(student_id=student, status='a')
@@ -58,6 +59,8 @@ def panel(request):
     return render(request, 'panel/student.html', {
         'absences': absences,
         'upload_messages': upload_message,
+        'first_name': student.student_name,
+        'last_name': student.student_lname,
     })
 
 def logout(request):
