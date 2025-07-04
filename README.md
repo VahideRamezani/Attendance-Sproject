@@ -19,7 +19,7 @@
 ## 💻 تکنولوژی‌های استفاده‌شده
 
 - **Back-end**: Django (پایتون)  
-- **Front-end**: Tailwind CSS  
+- **Front-end**: Tailwind CSS  + JavaScript
 
 
 
