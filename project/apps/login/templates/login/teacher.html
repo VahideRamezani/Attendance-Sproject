@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-login</title>
     <link href="{% static 'css/output.css' %}" rel="stylesheet"/>
+    <style>
+        img.captcha {
+            height: 38px !important;
+            width: 20% !important;
+        }
+
+        @media (min-width: 768px) {
+            img.captcha {
+                height: 50px !important;
+                width: 20% !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="min-h-screen p-0 font-yekan bg-gray-100">
@@ -21,7 +34,7 @@
     <img src="{% static 'pics/pen.png' %}" class="hidden md:block absolute bottom-0 right-0 ">
 
     <!-- Login Form -->
-    <div class="bg-[#0A2342] rounded-2xl shadow-xl w-full max-w-3xl md:min-h-[700px] h-[500px] flex flex-col justify-center items-center">
+    <div class="bg-[#0A2342] rounded-2xl shadow-xl w-full max-w-3xl md:min-h-[700px] h-[450px] flex flex-col justify-center items-center">
 
         <h1 class="text-xl md:text-5xl font-bold text-center text-white md:mb-20 mb-10">ورود معلم</h1>
         <form class="md:space-y-10 space-y-5 w-[90%] md:w-[80%]" method="post">
@@ -39,24 +52,25 @@
                 <label for="password" class="col-span-3 text-white text-lg md:text-2xl text-right">رمز عبور:</label>
                 {{ form.teacher_password }}
             </div>
-      <div>
-{#                <label for="captcha" class="block text-white mb-3 text-xl md:text-2xl text-nowrap">کد امنیتی:</label>#}
-                <div class="flex gap-6 w-full">
-                        {{ form.captcha }}
-                    </div>
+            <div>
+                {#                <label for="captcha" class="block text-white mb-3 text-xl md:text-2xl text-nowrap">کد امنیتی:</label>#}
+                <div class="col-span-9 flex items-center md:gap-8 gap-6">
+                    {{ form.captcha.image }}
+                    {{ form.captcha }}
                 </div>
+            </div>
 
 
-            <div class="flex flex-row gap-4">
+            <div class="w-[100%] flex flex-row gap-4 justify-center items-center  mx-auto">
                 <button
                         type="submit"
-                        class="w-full bg-[#FF7F50] text-[#0A2342] py-3 px-4 rounded-2xl hover:bg-[#3BD1A4] hover:text-white transition duration-200 mt-8 text-xl md:text-2xl ">
+                        class="w-full bg-[#FF7F50] text-[#0A2342] py-3 px-4 md:rounded-2xl rounded-xl hover:bg-[#3BD1A4] hover:text-white transition duration-200 mt-8 text-xl md:text-2xl ">
                     ورود
                 </button>
                 <button
                         onclick="history.back()"
                         type="button"
-                        class="w-full bg-[#FF7F50] text-[#0A2342] py-3 px-4 rounded-2xl hover:bg-[#3BD1A4] hover:text-white transition duration-200 mt-8 text-xl md:text-2xl ">
+                        class="w-full bg-[#FF7F50] text-[#0A2342] py-3 px-4 md:rounded-2xl rounded-xl  hover:bg-[#3BD1A4] hover:text-white transition duration-200 mt-8 text-xl md:text-2xl ">
                     بازگشت
                 </button>
 

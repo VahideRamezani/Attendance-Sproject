@@ -66,50 +66,47 @@
 {% endblock %}
 {# end motion #}
 
-{# first page #}
+
 {% block background %}
     <body class="relative overflow-x-hidden font-yekan m-0 pt-0">
-{% if messages %}
-<div class="fixed bottom-2 right-2 z-50">
-    {% for message in messages %}
-    <div id="message-{{ forloop.counter }}"
-         class="animate-slide-up  text-white font-bold mx-auto w-max text-2xl px-4 py-2 rounded shadow">
-        {{ message }}
-    </div>
-    {% endfor %}
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    {% for message in messages %}
-    setTimeout(() => {
-        const msg = document.getElementById('message-{{ forloop.counter }}');
-        if (msg) {
-            msg.classList.remove('animate-slide-up');
-            msg.classList.add('animate-slide-down');
-            msg.addEventListener('animationend', () => msg.remove());
-        }
-    }, 3000 + ({{ forloop.counter0 }} * 500));  // فاصله‌ی زمانی برای هر پیام
-    {% endfor %}
-});
-</script>
-{% endif %}
-    <section class="w-screen min-h-screen pt-10 md:pt-0 relative overflow-hidden">
+    {# log out message #}
     {% if messages %}
-        {% for message in messages %}
-            <div
-                    class="animate-slide-up bg-green-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-300 hover:bg-green-600 cursor-pointer"
-                    onclick="this.remove();">
-                {{ message }}
-            </div>
-        {% endfor %}
+        <div class="fixed bottom-2 right-2 z-50">
+            {% for message in messages %}
+                <div id="message-{{ forloop.counter }}"
+                     class="animate-slide-up  text-white font-bold mx-auto w-max text-2xl px-4 py-2 rounded shadow">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                {% for message in messages %}
+                    setTimeout(() => {
+                        const msg = document.getElementById('message-{{ forloop.counter }}');
+                        if (msg) {
+                            msg.classList.remove('animate-slide-up');
+                            msg.classList.add('animate-slide-down');
+                            msg.addEventListener('animationend', () => msg.remove());
+                        }
+                    }, 3000 + ({{ forloop.counter0 }} * 500));
+                {% endfor %}
+            });
+        </script>
     {% endif %}
-    <!-- background -->
+    {# logout message ended  #}
+
+    {# first section #}
+    <section class="w-screen min-h-screen pt-10 md:pt-0 relative overflow-hidden">
+
+    {# background #}
     <div class=" absolute inset-0 w-full h-full bg-cover bg-center z-0"
          style="background-image: url('{% static 'pics/first-page-back2.png' %}');"></div>
-    <!-- Overlay -->
+    {#Overlay #}
     <div class="absolute inset-0 w-full h-full bg-black opacity-40 z-10"></div>
-    <!-- Scroll-->
+    {#Scroll#}
     <div class="absolute bottom-0 w-full flex justify-center z-10">
         <div class=" m-10 rounded-full  text-center">
             <a href="#about-school" class="m-10 rounded-full shadow-lg text-center ">
@@ -119,9 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     </div>
 {% endblock %}
-
+{#started header#}
 {% block header %}
-    <!-- header -->
     <div class="relative z-10">
         <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A2342] text-white shadow-md w-full md:h-[12%] h-[8%] md:w-[70%] md:rounded-2xl md:top-10 md:mx-auto transition-all duration-300">
             <div class="flex items-center justify-between w-full px-4 py-2 md:px-6 md:py-3 h-full">
@@ -171,16 +167,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     </script>
 {% endblock %}
-{# end first page #}
+{#ended header #}
+{# end first section #}
 
 {% block content %}
-    {# second page #}
+
+    {# second section #}
     <section id="about-school">
 
+        {#    explations #}
         <div class=" bg-no-repeat  bg-center pt-40 pb-10 "
              style="background-image: url({% static './pics/devider.png' %});"></div>
 
         <div class="flex flex-col items-center">
+
+            {# ex 1#}
             <h2 class="m-10 text-xl font-extrabold leading-8 tracking-tight  md:text-3xl lg:text-3xl text-center">
                 هنرستان دخترانه فنی و حرفه‌ای استعداد های درخشان سعدی
             </h2>
@@ -200,8 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 و عملی دانش‌آموزان است و به آنها کمک می‌کند تا در مسیر موفقیت‌های آینده خود گام بردارند.
             </p>
 
-            <!-- نسخه موبایل -->
-            <p class="m-3 rtl:text-right text-xl text-justify md:hidden" style="max-width: 90%; text-align: justify;">
+            {# mobile version ex 1  #}
+            <p class="m-3 rtl:text-right text-lg text-right md:hidden" style="max-width: 90%; text-align: justify;">
                 هنرستان دخترانه فنی و حرفه‌ای استعدادهای درخشان سعدی یک مرکز آموزشی است که در سال 1399 تاسیس شده و در
                 ابتدای
                 بلوار کلاهدوز واقع است. این هنرستان با هدف پرورش استعدادهای جوانان در زمینه‌های فنی و هنری فعالیت می‌کند
@@ -209,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 سه رشته تخصصی مانند شبکه، نرم‌افزار و گرافیک ارائه می‌دهد. همچنین، با ارائه آموزش‌های نوین و تجهیزات
                 پیشرفته، دانش‌آموزان را برای ورود به بازار کار آماده می‌سازد.
             </p>
-
+            {# ex 2#}
             <h2 class="m-10 text-lg font-extrabold leading-none tracking-tight  md:text-3xl text-center">
                 سیستم حضور و غیاب
             </h2>
@@ -230,8 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 و غیاب، و همچنین ارتقاء ارتباط بین مدرسه و والدین. والدین می‌توانند به‌صورت آنلاین و در هر زمان از وضعیت
                 حضور فرزندان خود مطلع شوند، که این امر باعث افزایش شفافیت و اعتماد به سیستم آموزشی می‌شود.
             </p>
-
-            <p class="m-3 rtl:text-right text-lg text-justify md:hidden " style="max-width: 90%; text-align: justify;">
+            {# mobile version ex 2  #}
+            <p class="m-3 rtl:text-right text-lg text-start md:hidden " style="max-width: 90%; text-align: justify;">
                 سیستم حضور و غیاب آنلاین، یک ابتکار جدید در هنرستان سعدی است که برای افزایش دقت و سرعت در ثبت حضور و
                 غیاب
                 دانش‌آموزان طراحی شده است. معلمان از طریق گوشی یا سیستم‌های رایانه‌ای می‌توانند حضور دانش‌آموزان را ثبت
@@ -240,12 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 مدرسه می‌شود.
             </p>
 
+            {# role chooser #}
             <h2 class="m-10 text-xl font-extrabold leading-none tracking-tight  md:text-3xl text-center">
                 انتخاب نقش
             </h2>
 
             <div class="flex justify-center gap-10 md:gap-20 mt-5 flex-col md:flex-row">
-
                 <a href="{% url 'login:Slogin' %}"
                    class="w-60 h-[100px] md:h-40 bg-[#0A2342] text-white flex items-center justify-center rounded-xl shadow-lg text-lg hover:bg-[#0A2342]/90 transition duration-200">
                     دانش‌آموز
@@ -261,8 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     معاون / مدیر
                 </a>
             </div>
-
-
+            {# role chooser ended #}
         </div>
 
         <div id="about_system" class=" bg-no-repeat  bg-center pt-20 mt-20"
@@ -270,11 +270,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     </section>
 
-    {# third page #}
+    {# third section #}
     <section>
 
         <div class="flex flex-col md:flex-row gap-10 md:gap-20 my-20 justify-center items-start px-4">
-            <!-- BOX 1 -->
+            {# BOX 1 #}
             <div class="relative w-full max-w-[500px] bg-white p-5 mb-10 rounded-lg shadow-md border-r-[14px] border-[#FF7F50] text-right">
                 <h3 class="font-bold text-right text-xl md:text-2xl mb-5">تحول دیجیتالی در مدیریت حضور و غیاب</h3>
 
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
             </div>
 
-            <!-- BOX 2 -->
+            {#  BOX 2 #}
             <div class="relative w-full max-w-[500px] bg-white p-5 mb-10 rounded-lg shadow-md border-r-[14px] border-[#FF7F50] text-right">
                 <h3 class="font-bold mb-5 text-right text-xl md:text-2xl">مزایای سیستم حضور و غیاب آنلاین</h3>
                 <div id="box2"
@@ -338,34 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         </div>
 
-        <script>
-            function toggleExpand(_, button) {
-                const containers = document.querySelectorAll('.expand-container');
-                const buttons = document.querySelectorAll('button[onclick^="toggleExpand"]');
-
-                const anyOpen = [...containers].some(el => el.classList.contains("max-open"));
-
-                if (anyOpen) {
-
-                    containers.forEach(el => {
-                        el.classList.remove("max-open");
-                        el.classList.add("max-closed", "fade-mask");
-                    });
-                    buttons.forEach(btn => {
-                        btn.innerHTML = "مشاهده بیشتر &lt;";
-                    });
-                } else {
-
-                    containers.forEach(el => {
-                        el.classList.remove("max-closed", "fade-mask");
-                        el.classList.add("max-open");
-                    });
-                    buttons.forEach(btn => {
-                        btn.innerHTML = "بستن &gt;";
-                    });
-                }
-            }
-        </script>
+{% include 'home/script.html'%}
 
     </section>
 {% endblock %}

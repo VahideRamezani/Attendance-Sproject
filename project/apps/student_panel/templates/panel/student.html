@@ -80,7 +80,8 @@
                 <img src="{% static './pics/user.png' %}" class="md:max-w-16 md:max-h-16  max-h-10 max-w-10"
                      alt="لوگو"/>
                 <nav class="flex md:gap-20 gap-10 sm:text-base ">
-                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">دانش آموز {{ first_name }} {{ last_name }} به پنل کاربری خوش
+                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">دانش
+                        آموز {{ first_name }} {{ last_name }} به پنل کاربری خوش
                         آمدید</p>
                     <a href="{% url 'home:home' %}" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه
                         اصلی</a>
@@ -93,94 +94,134 @@
 
 {# content #}
 {% block content %}
-    <div class="p-4 md:p-10 flex justify-center items-center">
-        <div class="bg-white rounded-lg p-4 md:p-6 flex flex-col md:flex-row items-center gap-6 md:gap-12 w-full max-w-6xl">
+    <div class=" md:p-10 flex justify-center items-center">
+        <div class="bg-white rounded-lg p-4 md:p-6 flex flex-row items-center gap-6 md:gap-12 w-full max-w-6xl">
 
-            <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-0 hidden md:block">فیلترها:</h2>
+            <div class="w-full flex flex-row justify-center gap-4 md:gap-8 p-4 md:p-6">
+                <form method="get" id="filter-form" class="flex gap-4 md:gap-8">
+                    <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-0 hidden md:block">فیلترها:</h2>
+                    <!-- دروس -->
+                    <div class="w-full flex flex-row">
+                        <select name="subject_id" onchange="document.getElementById('filter-form').submit()"
+                                class="max-w-[260px] min-w-[50px] px-4 py-2 bg-[#FF7F50] text-white rounded-xl
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500
+                                   text-xs md:text-2xl text-right appearance-none text-wrap">
+                            <option value=""> درس</option>
+                            {% for subject in subjects_list %}
+                                <option value="{{ subject.subject_id }}"
+                                        {% if selected_subject == subject.subject_id|stringformat:"s" %}selected{% endif %}>
+                                    {{ subject.subject_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-            <!-- فیلترها -->
-            <div class="flex flex-wrap md:grid md:grid-cols-3 gap-4 md:gap-6 justify-center w-full">
+                    <!-- تاریخ -->
+                    <div class="w-full flex flex-row">
+                        <select name="date" onchange="document.getElementById('filter-form').submit()"
+                                class="max-w-[260px] min-w-[50px] px-4 py-2 bg-[#FF7F50] text-white rounded-xl
+                                   focus:outline-none focus:ring-2 focus:ring-blue-500
+                                   text-xs md:text-2xl text-right appearance-none text-wrap">
+                            <option value=""> تاریخ</option>
+                            {% for d in date_range %}
+                                <option value="{{ d.gregorian }}"
+                                        {% if selected_date == d.gregorian|stringformat:"s" %}selected{% endif %}>
+                                    {{ d.jalali }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-                <div class="relative">
-                    <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
-                        <option value="">تاریخ</option>
-                    </select>
-                </div>
+                    <!-- دبیران -->
+                    {#                    <div class="w-full flex flex-row">#}
+                    {#                        <select name="teacher_id" onchange="document.getElementById('filter-form').submit()"#}
+                    {#                                class="max-w-[260px] min-w-[50px] px-4 py-2 bg-[#FF7F50] text-white rounded-xl#}
+                    {#                                   focus:outline-none focus:ring-2 focus:ring-blue-500#}
+                    {#                                   text-xs md:text-2xl text-right appearance-none text-wrap">#}
+                    {#                            <option value="">دبیران</option>#}
+                    {#                            {% for teacher in teachers_list %}#}
+                    {#                                <option value="{{ teacher.teacher_id }}"#}
+                    {#                                        {% if selected_teacher == teacher.teacher_id|stringformat:"s" %}selected{% endif %}>#}
+                    {#                                    {{ teacher.teacher_name }} {{ teacher.teacher_lname }}#}
+                    {#                                </option>#}
+                    {#                            {% endfor %}#}
+                    {#                        </select>#}
+                    {#                    </div>#}
 
-                <div class="relative">
-                    <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
-                        <option value="">دبیران</option>
-                    </select>
-                </div>
-
-                <div class="relative">
-                    <select class="block px-4 md:px-20 py-2 bg-[#FF7F50] text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-3xl">
-                        <option value="">دروس</option>
-                    </select>
-                </div>
-
+                </form>
             </div>
-
         </div>
     </div>
 
     <!-- table -->
     <div class="w-full flex justify-center px-4">
-        <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg overflow-hidden">
-            <table class="w-full text-center font-yekan text-lg">
-                <thead>
-                <tr class="bg-[#FBFBFB] md:text-xl text-base">
-                    <th class="py-8">درس</th>
-                    <th class="py-8">روز هفته</th>
-                    <th>تاریخ</th>
-                    <th>آپلود گواهی</th>
-                    <th>تایید گواهی</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for absence in absences %}
+        {% if absences %}
+            <div class="w-full max-w-6xl bg-white rounded-xl shadow-lg overflow-hidden">
 
-                    <tr class="bg-[#EBEBEB] odd:bg-gray-100 md:text-lg text-sm">
-                        <td class="py-4">{{ absence.subject_name }}</td>
-                        <td class="py-4">{{ absence.weekday }}</td>
-                        <td>{{ absence.jalali_date }}</td>
-                        <td>
-                            {% if absence.proof_image %}
-                                <a href="{{ absence.proof_image.url }}" target="_blank">
-                                    <img src="{% static 'pics/view-icon.png' %}" alt="مشاهده"
-                                         class="mx-auto md:w-20 md:h-20 w-8 h-8 opacity-50">
-                                </a>
-                            {% else %}
-                                <form method="post" enctype="multipart/form-data" id="form-{{ absence.attendance_id }}">
-                                    {% csrf_token %}
-                                    <input type="file" name="proof_{{ absence.attendance_id }}" accept="image/*"
-                                           id="file-{{ absence.attendance_id }}" class="hidden"
-                                           onchange="document.getElementById('form-{{ absence.attendance_id }}').submit();">
-
-                                    <label for="file-{{ absence.attendance_id }}" style="cursor: pointer;">
-                                        <img src="{% static './pics/upload.png' %}" alt="آپلود" class="md:w-20 md:h-20 w-8 h-8 mx-auto">
-                                    </label>
-                                </form>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if absence.proof_verified == True %}
-                                 <img src="{% static 'pics/check-green.png' %}" alt="تایید"
-                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
-                            {% elif absence.proof_verified == False %}
-                                 <img src="{% static 'pics/check.png' %}" alt="رد"
-                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
-                            {% else %}
-                                <img src="{% static 'pics/check-gray.png' %}" alt="هیج"
-                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
-                            {% endif %}
-                        </td>
+                <table class="w-full text-center font-yekan text-lg">
+                    <thead>
+                    <tr class="bg-[#FBFBFB] md:text-xl text-base">
+                        <th class="py-8">درس</th>
+                        <th class="py-8">روز هفته</th>
+                        <th>تاریخ</th>
+                        <th>آپلود گواهی</th>
+                        <th>تایید گواهی</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for absence in absences %}
 
-        </div>
-    </div>
+                        <tr class="bg-[#EBEBEB] odd:bg-gray-100 md:text-lg text-sm">
+                            <td class="py-4">{{ absence.subject_name }}</td>
+                            <td class="py-4">{{ absence.weekday }}</td>
+                            <td>{{ absence.jalali_date }}</td>
+                            <td>
+                                {% if absence.proof_image %}
+                                    <a href="{{ absence.proof_image.url }}" target="_self">
+                                        <img src="{% static 'pics/view-icon.png' %}" alt="مشاهده"
+                                             class="mx-auto md:w-24 md:h-20 w-8 h-8 opacity-50">
+                                    </a>
+                                {% else %}
+                                    <form method="post" enctype="multipart/form-data"
+                                          id="form-{{ absence.attendance_id }}">
+                                        {% csrf_token %}
+                                        <input type="file" name="proof_{{ absence.attendance_id }}"
+                                               accept="image/*"
+                                               id="file-{{ absence.attendance_id }}" class="hidden"
+                                               onchange="document.getElementById('form-{{ absence.attendance_id }}').submit();">
+
+                                        <label for="file-{{ absence.attendance_id }}" style="cursor: pointer;">
+                                            <img src="{% static './pics/upload.png' %}" alt="آپلود"
+                                                 class="md:w-20 md:h-20 w-8 h-8 mx-auto">
+                                        </label>
+                                    </form>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if absence.proof_verified == True %}
+                                    <img src="{% static 'pics/check-green.png' %}" alt="تایید"
+                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
+                                {% elif absence.proof_verified == False %}
+                                    <img src="{% static 'pics/check.png' %}" alt="رد"
+                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
+                                {% else %}
+                                    <img src="{% static 'pics/check-gray.png' %}" alt="هیج"
+                                         class="md:w-14 md:h-14 w-6 h-6 mx-auto">
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+            </div>
+        {% elif no_records %}
+            <p class="text-center text-gray-500 mt-4">چنین فیلدی وجود ندارد.</p>
+        {% endif %}
+
     </section>
+
 {% endblock content %}

@@ -29,7 +29,8 @@
             <div class="flex items-center space-x-10 space-x-reverse">
                 <img src="{% static './pics/user.png' %}" class="md:max-w-16 md:max-h-16  max-h-6 max-w-6" alt="لوگو"/>
                 <nav class="flex md:gap-20 gap-10 sm:text-base ">
-                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">کاربر عزیز به پنل کاربری خوش
+                    <p class="hover:text-gray-300 text-lg md:text-2xl hidden md:block">{{ first_name }} {{ last_name }}
+                        عزیز به پنل کاربری خوش
                         آمدید</p>
                     <a href="{% url 'home:home' %}" class="hover:text-gray-300 text-lg md:text-2xl text-nowrap">صفحه
                         اصلی</a>
@@ -45,11 +46,10 @@
     <div class=" md:p-10 flex justify-center items-center">
         <div class="bg-white rounded-lg p-4 md:p-6 flex flex-row md:flex-row items-center gap-6 md:gap-12 w-full max-w-6xl">
 
-            <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-0 hidden md:block">فیلترها:</h2>
 
             <div class="w-full flex flex-row justify-center gap-4 md:gap-8 p-4 md:p-6">
                 <form method="get" id="filterForm" class="w-full flex flex-row justify-center gap-4 md:gap-8">
-
+                    <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-0 hidden md:block">فیلترها:</h2>
                     <!-- کلاس -->
                     <div>
                         <select name="class_id" onchange="document.getElementById('filterForm').submit();"
@@ -130,7 +130,7 @@
                             <th class="py-4 m-2">گواهی</th>
                             <th class="py-4 m-2">نام و نام خانوادگی</th>
                             <th class="py-4 m-2">تاریخ</th>
-                            <th class="py-4 m-0">وضعیت</th>
+                            <th class="py-4 m-2">وضعیت</th>
                             <th class="py-4 m-0">تایید گواهی</th>
                         </tr>
                         </thead>
@@ -160,37 +160,47 @@
                                     {% endif %}
                                 </td>
                                 {% if is_today %}
-                                    <td class="py-2 text-center text-xs md:text-2xl m-2">
+                                    <td class="py-2 text-center text-xs md:text-2xl m-4">
                                         <select name="status-{{ student.student_id }}"
                                                 class="status-select md:py-2 md:px-8 p-1 text-center text-xs md:text-2xl m-2 md:rounded-xl rounded-lg"
                                                 data-student-id="{{ student.student_id }}"
                                                 style="background-color: #FF7F50;">
-                                            <option value="a" data-color="#f63923">غایب</option>
-                                            <option value="l" data-color="#F59E0B">تاخیر</option>
-                                            <option value="p" data-color="#22C55E">حاضر</option>
+                                           <option value="p" data-color="#22C55E"
+                                                    {% if student.status == 'p' %}selected{% endif %}>حاضر
+                                            </option>
+                                         <option value="l" data-color="#F59E0B"
+                                                    {% if student.status == 'l' %}selected{% endif %}>تاخیر
+                                            </option>
+                                            <option value="a" data-color="#f63923"
+                                                    {% if student.status == 'a' %}selected{% endif %}>غایب
+                                            </option>
+
+
 
 
                                         </select>
                                     </td>
                                 {% else %}
-                                    <td class="py-2 text-center">
-                                        <p class="text-gray-500 md:py-2 md:px-8p text-center text-xs md:text-2xl m-2 md:rounded-xl rounded-lg ">
-                                            no access
-                                        </p>
+                                    <td class="py-2 px-2">
+                                        <p class="py-2 md:text-xl text-xs opacity-50">غیرفعال</p>
                                     </td>
 
                                 {% endif %}
-                                <td class="py-2 text-center">
+                                <td class="py-2 px-0 text-center">
                                     {% if student.proof_image_url %}
                                         <select name="proof_status-{{ student.student_id }}"
                                                 class="status-select w-fit md:py-2 md:px-8 p-1 text-center text-xs md:text-2xl m-2 md:rounded-xl rounded-lg"
                                                 data-student-id="{{ student.id }}"
                                                 style="background-color: #FF7F50;">
-                                            <option value="none" data-color="#f63923" {% if student.proof_verified == False %}selected{% endif %}>رد تایید</option>
-                                            <option value="approved" data-color="#22C55E" {% if student.proof_verified == True %}selected{% endif %}>تایید</option>
+                                            <option value="none" data-color="#f63923"
+                                                    {% if student.proof_verified == False %}selected{% endif %}>رد تایید
+                                            </option>
+                                            <option value="approved" data-color="#22C55E"
+                                                    {% if student.proof_verified == True %}selected{% endif %}>تایید
+                                            </option>
                                         </select>
                                     {% else %}
-                                        <a class="py-2 md:text-xl text-xs">غیرفعال</a>
+                                        <p class="py-2 md:text-xl text-xs opacity-50">غیرفعال</p>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -204,7 +214,7 @@
 
                 </div>
                 <div class="flex gap-5 justify-center items-center m-4">
-                    <button type="submit"  name="action" value="attendance"
+                    <button type="submit" name="action" value="attendance"
                             class="bg-[#0A2342] md:px-8 md:py-4 px-2 py-2 md:text-2xl text-sm text-white md:rounded-xl rounded-lg mt-8 transition-colors duration-300 ease-in-out hover:bg-[#FF7F50] focus:outline-none focus:ring-4 focus:ring-[#ff9e70]">
                         ثبت وضعیت حضور
                     </button>
@@ -229,34 +239,33 @@
 
 
     <script>
-        // ثبت وضعیت حضور با fetch
-        document.querySelectorAll('.status-select').forEach(select => {
-            select.addEventListener('change', function () {
-                const studentId = this.getAttribute('data-student-id');
-                const status = this.value;
 
-                fetch("{% url 'teacher_panel:update_attendance' %}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({
-                        student_id: studentId,
-                        status: status
-                    })
-                }).then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('وضعیت ثبت شد');
-                        } else {
-                            alert('خطا در ثبت وضعیت');
-                        }
-                    });
-            });
-        });
+        {#document.querySelectorAll('.status-select').forEach(select => {#}
+        {#    select.addEventListener('change', function () {#}
+        {#        const studentId = this.getAttribute('data-student-id');#}
+        {#        const status = this.value;#}
+        {##}
+        {#        fetch("{% url 'teacher_panel:update_attendance' %}", {#}
+        {#            method: 'POST',#}
+        {#            headers: {#}
+        {#                'Content-Type': 'application/json',#}
+        {#                'X-CSRFToken': '{{ csrf_token }}'#}
+        {#            },#}
+        {#            body: JSON.stringify({#}
+        {#                student_id: studentId,#}
+        {#                status: status#}
+        {#            })#}
+        {#        }).then(response => response.json())#}
+        {#            .then(data => {#}
+        {#                if (data.success) {#}
+        {#                    alert('وضعیت ثبت شد');#}
+        {#                } else {#}
+        {#                    alert('خطا در ثبت وضعیت');#}
+        {#                }#}
+        {#            });#}
+        {#    });#}
 
-        // رنگی شدن سلکت‌ها
+
         document.querySelectorAll('.status-select, .confirm-select').forEach(function (select) {
             function updateColor() {
                 const selectedOption = select.options[select.selectedIndex];
@@ -266,11 +275,11 @@
                 }
             }
 
-            updateColor();  // رنگ اولیه
-            select.addEventListener('change', updateColor);  // تغییر بعدی
+            updateColor();
+            select.addEventListener('change', updateColor);
         });
 
-        // باز کردن مودال عکس گواهی
+
         function openImageModal(imageUrl) {
             const modal = document.getElementById("imageModal");
             const modalImage = document.getElementById("modalImage");
@@ -282,7 +291,6 @@
             document.getElementById("imageModal").classList.add("hidden");
         }
 
-        // بستن مودال با کلیک روی بک‌گراند
         document.addEventListener('DOMContentLoaded', function () {
             const modal = document.getElementById("imageModal");
             if (modal) {

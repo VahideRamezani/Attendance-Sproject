@@ -1,0 +1,28 @@
+<script>
+            function toggleExpand(_, button) {
+                const containers = document.querySelectorAll('.expand-container');
+                const buttons = document.querySelectorAll('button[onclick^="toggleExpand"]');
+
+                const anyOpen = [...containers].some(el => el.classList.contains("max-open"));
+
+                if (anyOpen) {
+
+                    containers.forEach(el => {
+                        el.classList.remove("max-open");
+                        el.classList.add("max-closed", "fade-mask");
+                    });
+                    buttons.forEach(btn => {
+                        btn.innerHTML = "مشاهده بیشتر &lt;";
+                    });
+                } else {
+
+                    containers.forEach(el => {
+                        el.classList.remove("max-closed", "fade-mask");
+                        el.classList.add("max-open");
+                    });
+                    buttons.forEach(btn => {
+                        btn.innerHTML = "بستن &gt;";
+                    });
+                }
+            }
+        </script>

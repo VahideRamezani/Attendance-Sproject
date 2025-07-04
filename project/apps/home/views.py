@@ -6,3 +6,6 @@ def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
 
 from django.shortcuts import render
+
+# def ss404(request):
+#     return render(request , '404.html')

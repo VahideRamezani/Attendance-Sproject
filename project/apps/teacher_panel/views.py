@@ -1,24 +1,18 @@
-import json
+
 from datetime import date, timedelta, datetime
-
 from django.contrib import messages
-from django.utils.functional import cached_property
 import jdatetime
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.utils.dateparse import parse_date
-from django.utils.timezone import localdate
-
 from apps.login.models import classes, students, teachers, subjects, teacher_class_subject, attendance
-from .forms import TeacherFilterForm
+
 
 
 def panel(request):
     teacher_id = request.session.get('teacher_id')
     if not teacher_id:
-        return redirect('login_page')
-    teacher = teachers.objects.get(teacher_id=teacher_id)
+        return redirect('login:roles')
 
+    teacher = teachers.objects.get(teacher_id=teacher_id)
     tcs_qs = teacher_class_subject.objects.filter(teacher_id=teacher)
 
     classes_for_teacher = classes.objects.filter(
@@ -38,14 +32,12 @@ def panel(request):
         if subjects_for_teacher.exists():
             selected_subject = str(subjects_for_teacher.first().subject_id)
         selected_date = date.today().strftime('%Y-%m-%d')
-
-
         return redirect(
             f"{request.path}?class_id={selected_class}&subject_id={selected_subject}&date={selected_date}"
         )
 
-    students_list = []
 
+    students_list = []
     if selected_class and selected_subject:
         is_valid = teacher_class_subject.objects.filter(
             teacher_id=selected_teacher,
@@ -56,11 +48,23 @@ def panel(request):
         if is_valid:
             students_list = students.objects.filter(class_id=selected_class)
         else:
-            students_list = []  # ترکیب نامعتبره → خالی
+            students_list = []
     else:
         students_list = []
 
-    # تاریخ انتخاب‌شده (شمسی/میلادی)
+
+    start_date = date(2025, 3, 20)
+    today = date.today()
+    date_range = []
+    current_date = start_date
+    while current_date <= today:
+        date_range.append({
+            'gregorian': current_date,
+            'jalali': jdatetime.date.fromgregorian(date=current_date)
+        })
+        current_date += timedelta(days=1)
+    date_range.reverse()
+
     selected_date_jalali_str = ''
     is_today = False
     if selected_date:
@@ -76,24 +80,16 @@ def panel(request):
         selected_date_jalali_str = jdatetime.date.fromgregorian(date=dt).strftime('%Y/%m/%d')
         is_today = True
 
-
-    start_date = date(2025, 3, 20)
-    today = date.today()
-    date_range = []
-    current_date = start_date
-    while current_date <= today:
-        date_range.append({
-            'gregorian': current_date,
-            'jalali': jdatetime.date.fromgregorian(date=current_date)
-        })
-        current_date += timedelta(days=1)
-    date_range.reverse()
-
-
     for student in students_list:
-        att = attendance.objects.filter(student_id=student, date=dt).first()
+        att = attendance.objects.filter(
+            student_id=student,
+            date=dt,
+            subject_id=selected_subject,
+            teacher_id=teacher
+        ).first()
         student.proof_image_url = att.proof_image.url if att and att.proof_image else None
         student.proof_verified = att.proof_verified if att else None
+        student.status = att.status if att else None
 
     context = {
         'classes_for_teacher': classes_for_teacher,
@@ -106,6 +102,9 @@ def panel(request):
         'date_range': date_range,
         'today': jdatetime.date.fromgregorian(date=today).strftime('%Y/%m/%d'),
         'is_today': is_today,
+        'selected_date': dt.strftime('%Y-%m-%d'),
+        'first_name': teacher.teacher_name,
+        'last_name': teacher.teacher_lname,
     }
 
     return render(request, 'panel/teacher.html', context)
@@ -147,7 +146,7 @@ def update_attendance(request):
         ).exists()
 
         if not valid:
-            return redirect('unauthorized_access')
+            return redirect('teacher_panel:panel')
 
         try:
             class_obj = classes.objects.get(class_id=selected_class_id)
